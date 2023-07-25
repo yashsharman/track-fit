@@ -1,4 +1,4 @@
-import './SavedProgress.component.css'
+import './SavedProgress.styles.css'
 import { ReactComponent as EmptyPrIcon} from '../../assets/empty-pr.svg';
 import { ReactComponent as PrIcon} from '../../assets/pr.svg';
 import { ReactComponent as CommentIcon} from '../../assets/comment-icon.svg';
