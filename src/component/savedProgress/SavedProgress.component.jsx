@@ -11,7 +11,7 @@ function SavedProgress() {
             <div className="comment-icon"><EmptyCommentIcon className='icons'/></div>
             <div className="pr-container"><EmptyPrIcon className='icons'/></div>
             <div className="display-set"><b>1</b></div>
-            <div className="display-weight"><b>12.5 </b><span className='light-text'>kgs</span></div>
+            <div className="display-weight"><b>12.55 </b><span className='light-text'>kgs</span></div>
             <div className="display-reps"><b>8 </b><span className='light-text'>reps</span></div>
         </div>
             <hr />
