@@ -1,10 +1,11 @@
 import './App.css';
-import AddExercise from './component/addExercise/addExercise.component';
+import RecordExercise from './component/recordExercise/RecordExercise.component';
 
 function App() {
   return (
     <div className="App">
-      <AddExercise/>
+
+      <RecordExercise/>
     </div>
   );
 }
