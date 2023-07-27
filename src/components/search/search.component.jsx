@@ -11,20 +11,27 @@ const Search = ({ data }) => {
     setSearchQuery(query);
 
     // Filter the data based on the search query
-    const filteredResults = data.reduce((acc, item) => {
-      const filteredSubcategories = item.subcategories.filter(subcat =>
-        subcat.toLowerCase().includes(query.toLowerCase())
-      );
+    let filteredResults;
+    const categories = Object.keys(data);
+    categories.map((category) => {
+       filteredResults = data.category.reduce((acc, item) => {
+        const filteredSubcategories = item.subcategories.filter(subcat =>
+          subcat.toLowerCase().includes(query.toLowerCase())
+        );
 
-      if (filteredSubcategories.length > 0) {
-        acc.push({
-          category: item.category,
-          subcategories: filteredSubcategories,
-        });
-      }
-
-      return acc;
-    }, []);
+        if (filteredSubcategories.length > 0) {
+          acc.push({
+            category: item.category,
+            subcategories: filteredSubcategories,
+          });
+        }
+  
+        return acc;
+      }, []);
+  
+    } )
+    
+     
 
     // Update the search results state
     setSearchResults(filteredResults);
