@@ -1,28 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Search = ({ data }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  // const [activeCategory, setActiveCategory] = useState(null);
 
   // Function to handle search input changes
   const handleSearchInputChange = (event) => {
     const query = event.target.value;
     setSearchQuery(query);
 
-let filteredResults = [];
+    let filteredResults = [];
     const categories = Object.keys(data);
     categories.map((category) => {
-      let results=data[category].filter((subcat) =>
+      let results = data[category].filter((subcat) =>
         subcat.toLowerCase().includes(query.toLowerCase())
       );
-      if(results.length > 0){
-        filteredResults.push(...results)
-
+      if (results.length > 0 && query !== "") {
+        filteredResults.push(...results);
       }
-      return filteredResults;
     });
-    console.log(filteredResults);  
+    console.log(filteredResults);
 
     // Update the search results state
     setSearchResults(filteredResults);
@@ -31,7 +29,6 @@ let filteredResults = [];
     // setActiveCategory(null);
   };
 
-  
   return (
     <div>
       <h1>Search</h1>
@@ -40,17 +37,22 @@ let filteredResults = [];
         placeholder="Search exercises..."
         value={searchQuery}
         onChange={handleSearchInputChange}
+        className="searchInput"
       />
 
-      { searchResults.length > 0 ?
-        searchResults.map((result)=>{
-               return (<h4>{result}</h4>) })
-                : <h4>{Object.keys(data)}</h4>
-      }
-     
+      {searchResults.length > 0 ? (
+        searchResults.map((result) => {
+          return (
+            <Link to="/record-exercise">
+              <h4>{result}</h4>
+            </Link>
+          );
+        })
+      ) : (
+        <h4>{Object.keys(data)}</h4>
+      )}
     </div>
   );
 };
 
 export default Search;
-

@@ -56,3 +56,61 @@ function RecordExercise() {
 }
 
 export default RecordExercise;
+
+
+const jsonForlocalStorage= {
+  crunchs:{
+    '12/7/2023':[
+      {
+        comment: "",
+        weight: 12.5,
+        reps: 12,
+        pr: false,
+      },
+      {
+        comment: "",
+        weight: 14.5,
+        reps: 12,
+        pr: false,
+      },
+      {
+        comment: "",
+        weight: 1.5,
+        reps: 12,
+        pr: false,
+      },
+      {
+        comment: "",
+        weight: 125.5,
+        reps: 12,
+        pr: false,
+      },
+    ],
+    '22/7/2023':[
+      {
+        comment: "",
+        weight: 12.5,
+        reps: 12,
+        pr: false,
+      },
+      {
+        comment: "",
+        weight: 14.5,
+        reps: 12,
+        pr: false,
+      },
+      {
+        comment: "",
+        weight: 1.5,
+        reps: 12,
+        pr: false,
+      },
+      {
+        comment: "",
+        weight: 125.5,
+        reps: 12,
+        pr: false,
+      },
+    ]
+  }
+}
