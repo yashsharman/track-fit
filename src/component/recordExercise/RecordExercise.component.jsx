@@ -6,7 +6,6 @@ const clearInputBoxes = () => {
     .querySelectorAll("input")
     .forEach((inputbox) => (inputbox.value = 0));
 };
-
 const exerciseRecords = [
   {
     comment: "",
@@ -29,7 +28,6 @@ const exerciseRecords = [
     reps: 12,
   },
 ];
-console.log(exerciseRecords.length)
 function RecordExercise() {
   return (
     <div className="AddExercise-container">

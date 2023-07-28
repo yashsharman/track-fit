@@ -24,11 +24,11 @@ function SavedProgress({ exerciseRecords }) {
               </div>
               <div className="display-weight">
                 <b>{exrcise.weight}</b>
-                <span className="light-text">kgs</span>
+                <span className="light-text"> kgs</span>
               </div>
               <div className="display-reps">
                 <b>{exrcise.reps}</b>
-                <span className="light-text">reps</span>
+                <span className="light-text"> reps</span>
               </div>
             </div>
             <hr />
