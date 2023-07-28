@@ -1,3 +1,7 @@
+.SavedProgress-container> hr{
+    margin: 0 1rem;
+    color: gray;
+}
 .progress-container{
     display: flex;
     flex-direction: row;
@@ -13,8 +17,4 @@
 
 .icons{
     height: 1.5rem;
-}
-.SavedProgress-container> hr{
-    margin: 0 1rem;
-    color: gray;
 }
