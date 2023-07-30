@@ -16,7 +16,7 @@ let filteredResults = [];
       let results=data[category].filter((subcat) =>
         subcat.toLowerCase().includes(query.toLowerCase())
       );
-      if(results.length > 0){
+      if(results.length > 0 || query !== ""){
         filteredResults.push(...results)
 
       }
