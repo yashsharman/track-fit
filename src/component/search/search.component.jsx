@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Search = ({ data }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
-  // const [activeCategory, setActiveCategory] = useState(null);
 
   // Function to handle search input changes
   const handleSearchInputChange = (event) => {
@@ -16,7 +16,7 @@ let filteredResults = [];
       let results=data[category].filter((subcat) =>
         subcat.toLowerCase().includes(query.toLowerCase())
       );
-      if(results.length > 0){
+      if(results.length > 0 ){
         filteredResults.push(...results)
 
       }
@@ -26,12 +26,22 @@ let filteredResults = [];
 
     // Update the search results state
     setSearchResults(filteredResults);
-
-    // // Reset the active category when the search query changes
-    // setActiveCategory(null);
   };
 
-  
+  const showMainCategories = () => {
+    const categories = Object.keys(data);
+    return (
+      <>
+        {/* <h4>Main Categories</h4> */}
+        <ul>
+          {categories.map((category) => (
+            <li key={category}>{category}</li>
+          ))}
+        </ul>
+      </>
+    );
+  };
+
   return (
     <div>
       <h1>Search</h1>
@@ -42,15 +52,24 @@ let filteredResults = [];
         onChange={handleSearchInputChange}
       />
 
-      { searchResults.length > 0 ?
-        searchResults.map((result)=>{
-               return (<h4>{result}</h4>) })
-                : <h4>{Object.keys(data)}</h4>
-      }
-     
+      {searchResults.length > 0 ? (
+        searchResults.map((result) => <h4>{result}</h4>)
+      ) : (
+        <>
+          <h4>No results found.</h4>
+          <p>
+            You can <Link to="/addnewexercise">add new exercise</Link>.
+          </p>
+          {showMainCategories()}
+        </>
+      )}
     </div>
   );
 };
 
 export default Search;
+  
+
+
+
 
