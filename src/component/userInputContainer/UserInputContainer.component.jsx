@@ -1,3 +1,4 @@
+import './UserInputContainer.styles.css'
 const inputType = {
   reps: {
     heading: "REPS",
@@ -49,10 +50,10 @@ function UserInputContainer({ type }) {
         <h4>
           {inputType[type].heading} {inputType[type].headingType}
         </h4>
-        <hr />
+        <span className='heading-underline'></span>
         <div className="AddExercise-inputs">
           <button
-            className={`${type.heading}-btn default-btn`}
+            className={`${type.heading}-btn userInput-btn`}
             onClick={(e) => Decrement(e)}
           >
             &minus;
@@ -63,10 +64,9 @@ function UserInputContainer({ type }) {
             className={inputType[type].heading}
           />
           <button
-            className={`${type.heading}-btn default-btn`}
+            className={`${type.heading}-btn userInput-btn`}
             onClick={(e) => Increment(e)}
           >
-            {" "}
             &#43;
           </button>
         </div>

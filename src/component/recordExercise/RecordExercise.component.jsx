@@ -1,5 +1,6 @@
-import SavedProgress from "../savedProgress/SavedProgress.component";
+import ShowCurrentProgress from "../ShowCurrentProgress/ShowCurrentProgress.component";
 import UserInputContainer from "../userInputContainer/UserInputContainer.component";
+import './RecordExercise.styles.css'
 const clearInputBoxes = () => {
   document
     .querySelectorAll("input")
@@ -32,6 +33,7 @@ const exerciseRecords = [
   },
 ];
 const timeBoundExercise = ["hanging", "plank"];
+
 const renderExerciseElement = (exerciseName) => {
   let renderElement;
   timeBoundExercise.map((exName) => {
@@ -53,18 +55,18 @@ const renderExerciseElement = (exerciseName) => {
   });
   return renderElement;
 };
-function RecordExercise({ exerciseName="Chin-ups" }) {
+function RecordExercise({ exerciseName = "Chin-ups" }) {
   return (
     <div className="AddExercise-container">
-      <h2>{!exerciseName ? "Example Exercise" : exerciseName}</h2>
+      <div className="exercise-heading">{!exerciseName ? "Example Exercise" : exerciseName}</div>
       <div className="weight-set-container">
         {renderExerciseElement(exerciseName)}
         <div className="AddExercise-btn-group">
-          <button className="default-btn" onClick={() => {}}>
+          <button className="default-btn save-btn" onClick={() => {}}>
             SAVE
           </button>
           <button
-            className="default-btn"
+            className="default-btn clear-btn"
             onClick={() => {
               clearInputBoxes();
             }}
@@ -73,7 +75,7 @@ function RecordExercise({ exerciseName="Chin-ups" }) {
           </button>
         </div>
       </div>
-      <SavedProgress exerciseRecords={exerciseRecords} />
+      <ShowCurrentProgress exerciseRecords={exerciseRecords} />
     </div>
   );
 }

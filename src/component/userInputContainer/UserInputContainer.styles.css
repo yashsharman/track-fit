@@ -1,0 +1,19 @@
+.userInput-btn{
+    width: 3rem;
+    padding: .2rem;
+    font-size: xx-large;
+    font-weight: bolder;
+    text-align: center;
+    color: white;
+    border: none;
+    margin: 0.25rem;
+
+}
+.AddExercise-inputs > input{
+    border: none;
+    border-bottom: solid gray 1px;
+    text-align: center;
+    font-size: xx-large;
+    width: 30%;
+    color: gray;
+}
