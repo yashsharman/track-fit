@@ -15,13 +15,13 @@ const inputType = {
 };
 const Increment = (e) => {
   switch (e.target.previousSibling.className) {
-    case "REPS":
+    case "reps":
       e.target.previousSibling.value = +e.target.previousSibling.value + 1;
       break;
-    case "TIME":
+    case "time":
       e.target.previousSibling.value = +e.target.previousSibling.value + 5;
       break;
-    case "WEIGHT":
+    case "weight":
       e.target.previousSibling.value = +e.target.previousSibling.value + 2.5;
       break;
     default:
@@ -30,13 +30,13 @@ const Increment = (e) => {
 };
 const Decrement = (e) => {
     switch (e.target.nextSibling.className) {
-        case "REPS":
+        case "reps":
           e.target.nextSibling.value = +e.target.nextSibling.value - 1;
           break;
-        case "TIME":
+        case "time":
           e.target.nextSibling.value = +e.target.nextSibling.value - 5;
           break;
-        case "WEIGHT":
+        case "weight":
           e.target.nextSibling.value = +e.target.nextSibling.value - 2.5;
           break;
         default:
@@ -61,7 +61,7 @@ function UserInputContainer({ type }) {
           <input
             type="text"
             defaultValue={0}
-            className={inputType[type].heading}
+            className={inputType[type].heading.toLowerCase()}
           />
           <button
             className={`${type.heading}-btn userInput-btn`}

@@ -1,5 +1,5 @@
 .exercise-heading{
-    background-color: gray;
+    background-color: rgba(0, 0, 0, 0.85);
     margin: 0;
     padding: 1rem;
     color: white;
@@ -7,7 +7,7 @@
     text-align: left;
 }
 .default-btn{
-    padding: 1rem 3rem;
+    padding: 1rem 4rem;
     border: none;
     color: white;
     margin: 0.25rem;
