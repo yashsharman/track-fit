@@ -4,11 +4,9 @@ import UserInputContainer from "../userInputContainer/UserInputContainer.compone
 import "./RecordExercise.styles.css";
 
 const timeBoundExercise = ["hanging", "plank"];
-const currentSetsArry = [];
 
 function RecordExercise({ exerciseName = "Chin-ups" }) {
   const [recordsArry, setRecordArry] = useState([]);
-  const [currentCount,SetCurrentCount] = useState(0);
   const clearInputBoxes = () => {
     document
       .querySelectorAll("input")
@@ -18,7 +16,7 @@ function RecordExercise({ exerciseName = "Chin-ups" }) {
   const renderExerciseElement = (exerciseName) => {
     let renderElement;
     timeBoundExercise.map((exName) => {
-      if (exName == exerciseName) {
+      if (exName === exerciseName) {
         renderElement = (
           <>
             <UserInputContainer type={"time"} />
@@ -37,15 +35,11 @@ function RecordExercise({ exerciseName = "Chin-ups" }) {
     return renderElement;
   };
   const addSet = () => {
-    let currentSetObj = {
-      comment: "",
-      pr: false,
-    };
+    let currentSetObj = {};
     document.querySelectorAll("input").forEach((inputbox) => {
       currentSetObj[inputbox.className] = inputbox.value;
     });
-    currentSetsArry.push(currentSetObj);
-    setRecordArry(currentSetsArry);
+    setRecordArry([...recordsArry, currentSetObj]);
   };
 
   return (
@@ -67,7 +61,7 @@ function RecordExercise({ exerciseName = "Chin-ups" }) {
           </button>
         </div>
       </div>
-      {<ShowCurrentProgress recordsArry={recordsArry} />}
+      <ShowCurrentProgress recordsArry={recordsArry} key={1}/>
       
     </div>
   );

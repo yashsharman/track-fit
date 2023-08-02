@@ -4,38 +4,48 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage as EmptyCommentIcon } from "@fortawesome/free-regular-svg-icons";
 import { faMessage as commentIcon } from "@fortawesome/free-solid-svg-icons";
 
-function ShowCurrentProgress({recordsArry}) {
-  console.log("renderd")
-  const {comment,pr,currentCount, weight,reps} = recordsArry
-  return (<>
-            <div key={currentCount} className="progress-container">
+function ShowCurrentProgress({ recordsArry }) {
+  console.log(recordsArry)
+  return (
+    <>
+      {recordsArry.map((record) => {
+        return (<>
+            <div  key={1} className="progress-container">
               <div className="progress-container-left">
-                {!comment ? (
-                  <FontAwesomeIcon icon={EmptyCommentIcon}  style={{ color: "gainsboro" }}/>
+                {!record.comment ? (
+                  <FontAwesomeIcon
+                    icon={EmptyCommentIcon}
+                    style={{ color: "gainsboro" }}
+                  />
                 ) : (
-                  <FontAwesomeIcon icon={commentIcon} style={{ color: "teal" }} />
+                  <FontAwesomeIcon
+                    icon={commentIcon}
+                    style={{ color: "teal" }}
+                  />
                 )}
-                {pr ? (
+                {record.pr ? (
                   <FontAwesomeIcon icon={PrIcon} style={{ color: "orange" }} />
                 ) : (
                   <FontAwesomeIcon icon={PrIcon} style={{ color: "white" }} />
                 )}
-                <b>{currentCount}</b>
+                <b>{record.currentCount}</b>
               </div>
               <div className="progress-container-right">
                 <div className="display-weight">
-                  <b>{weight}</b>
+                  <b>{record.weight}</b>
                   <span className="light-text"> kgs</span>
                 </div>
                 <div className="display-reps">
-                  <b>{reps}</b>
+                  <b>{record.reps}</b>
                   <span className="light-text"> reps</span>
                 </div>
               </div>
             </div>
-            <span className="divider"></span>
-          </>
-       
+            <div className="divider"></div>
+            </>
+        );
+      })}
+    </>
   );
 }
 
