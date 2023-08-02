@@ -1,8 +1,8 @@
 import "./SavedProgress.styles.css";
 import { ReactComponent as EmptyPrIcon } from "../../assets/empty-pr.svg";
-import { ReactComponent as PrIcon } from "../../assets/pr.svg";
-import { ReactComponent as CommentIcon } from "../../assets/comment-icon.svg";
-import { ReactComponent as EmptyCommentIcon } from "../../assets/empty-comment-icon.svg";
+import { faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMessage } from "@fortawesome/free-regular-svg-icons";
 
 function SavedProgress({ exerciseRecords }) {
   let currentCount = 0;
@@ -12,12 +12,12 @@ function SavedProgress({ exerciseRecords }) {
         currentCount += 1;
         return (
           <>
-            <div className="progress-container">
+            <div key={currentCount} className="progress-container">
               <div className="comment-icon">
-                <EmptyCommentIcon className="icons" />
+                {!exrcise.comment ? <FontAwesomeIcon icon={faMessage} /> :<FontAwesomeIcon icon={faMessage} /> }
               </div>
               <div className="pr-container">
-                <EmptyPrIcon className="icons" />
+              {exrcise.pr ?<FontAwesomeIcon icon={faTrophy} style={{color: "orange"}}/>:null}
               </div>
               <div className="display-set">
                 <b>{currentCount}</b>
@@ -31,6 +31,7 @@ function SavedProgress({ exerciseRecords }) {
                 <span className="light-text"> reps</span>
               </div>
             </div>
+            
             <hr />
           </>
         );
