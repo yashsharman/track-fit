@@ -5,7 +5,14 @@ import "./RecordExercise.styles.css";
 
 const timeBoundExercise = ["hanging", "plank"];
 
+export const updateSelectedRecord =(record)=>{
+  //Highlight the selected progress container
+  //update data in input text
+  //save the new data in the prev index with updated values.
+}
 function RecordExercise({ exerciseName = "Chin-ups" }) {
+
+  
   const [recordsArry, setRecordArry] = useState([]);
   const clearInputBoxes = () => {
     document
@@ -41,6 +48,7 @@ function RecordExercise({ exerciseName = "Chin-ups" }) {
     });
     setRecordArry([...recordsArry, currentSetObj]);
   };
+
 
   return (
     <div className="AddExercise-container">

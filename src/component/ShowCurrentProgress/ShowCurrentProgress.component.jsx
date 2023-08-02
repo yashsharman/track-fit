@@ -3,6 +3,7 @@ import { faTrophy as PrIcon } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMessage as EmptyCommentIcon } from "@fortawesome/free-regular-svg-icons";
 import { faMessage as commentIcon } from "@fortawesome/free-solid-svg-icons";
+import { updateSelectedRecord } from "../recordExercise/RecordExercise.component";
 
 function ShowCurrentProgress({ recordsArry }) {
   console.log(recordsArry)
@@ -10,7 +11,7 @@ function ShowCurrentProgress({ recordsArry }) {
     <>
       {recordsArry.map((record) => {
         return (<>
-            <div  key={1} className="progress-container">
+            <div  key={1} className="progress-container" onClick={(record)=>updateSelectedRecord(record)}>
               <div className="progress-container-left">
                 {!record.comment ? (
                   <FontAwesomeIcon
