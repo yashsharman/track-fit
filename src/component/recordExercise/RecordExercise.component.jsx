@@ -1,18 +1,38 @@
-import {useState } from "react";
+import { useState } from "react";
 import ShowCurrentProgress from "../ShowCurrentProgress/ShowCurrentProgress.component";
 import UserInputContainer from "../userInputContainer/UserInputContainer.component";
 import "./RecordExercise.styles.css";
 
 const timeBoundExercise = ["hanging", "plank"];
+let currentCount = 0;
 
-export const updateSelectedRecord =(record)=>{
-  //Highlight the selected progress container
-  //update data in input text
-  //save the new data in the prev index with updated values.
-}
+export const updateSelectedRecord = (event, record) => {
+  let saveBtn = document.querySelector(".save-btn");
+  let clearBtn = document.querySelector(".clear-btn");
+  let recordElements = document.querySelectorAll(".progress-container");
+  //?Highlight the selected progress container & change btn with respective functions...
+  recordElements.forEach((recordElement) => {
+    if (event.target !== recordElement) {
+      recordElement.classList.remove("selected-progress-container");
+      saveBtn.innerText = "SAVE";
+      clearBtn.innerText = "CLEAR"
+      clearBtn.classList.remove("delete-btn");
+    } else if (event.target === recordElement) {
+      event.target.classList.toggle("selected-progress-container");
+    }
+    if(event.target.classList.contains("selected-progress-container")){
+      saveBtn.innerText = "UPDATE";
+      clearBtn.innerText = "DELETE"
+      clearBtn.classList.add("delete-btn");
+    }
+  });
+
+  //? if the object containes same set-numb then update data in input text..
+  document.querySelector(".weight").value = record.weight;
+  document.querySelector(".reps").value = record.reps;
+  //?save the new data in the prev index with updated values.
+};
 function RecordExercise({ exerciseName = "Chin-ups" }) {
-
-  
   const [recordsArry, setRecordArry] = useState([]);
   const clearInputBoxes = () => {
     document
@@ -42,13 +62,14 @@ function RecordExercise({ exerciseName = "Chin-ups" }) {
     return renderElement;
   };
   const addSet = () => {
+    currentCount++;
     let currentSetObj = {};
     document.querySelectorAll("input").forEach((inputbox) => {
       currentSetObj[inputbox.className] = inputbox.value;
     });
+    currentSetObj.currentCount = currentCount;
     setRecordArry([...recordsArry, currentSetObj]);
   };
-
 
   return (
     <div className="AddExercise-container">
@@ -69,8 +90,7 @@ function RecordExercise({ exerciseName = "Chin-ups" }) {
           </button>
         </div>
       </div>
-      <ShowCurrentProgress recordsArry={recordsArry} key={1}/>
-      
+      <ShowCurrentProgress recordsArry={recordsArry} key={1} />
     </div>
   );
 }

@@ -6,12 +6,11 @@ import { faMessage as commentIcon } from "@fortawesome/free-solid-svg-icons";
 import { updateSelectedRecord } from "../recordExercise/RecordExercise.component";
 
 function ShowCurrentProgress({ recordsArry }) {
-  console.log(recordsArry)
   return (
     <>
       {recordsArry.map((record) => {
         return (<>
-            <div  key={1} className="progress-container" onClick={(record)=>updateSelectedRecord(record)}>
+            <div  key={1} className="progress-container" onClick={(event)=>updateSelectedRecord(event,record)}>
               <div className="progress-container-left">
                 {!record.comment ? (
                   <FontAwesomeIcon
