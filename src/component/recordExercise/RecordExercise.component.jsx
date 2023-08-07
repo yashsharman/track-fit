@@ -1,43 +1,61 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ShowCurrentProgress from "../ShowCurrentProgress/ShowCurrentProgress.component";
 import UserInputContainer from "../userInputContainer/UserInputContainer.component";
 import "./RecordExercise.styles.css";
+import ShowCrudBtn from "../showCrudBtn/ShowCrudBtn.component";
+import ShowComment from "../showComment/ShowComment.compenent";
 
 const timeBoundExercise = ["hanging", "plank"];
 let currentCount = 0;
+let selectedRecordObj;
 
-export const updateSelectedRecord = (event, record) => {
-  let saveBtn = document.querySelector(".save-btn");
-  let clearBtn = document.querySelector(".clear-btn");
-  let recordElements = document.querySelectorAll(".progress-container");
-  //?Highlight the selected progress container & change btn with respective functions...
-  recordElements.forEach((recordElement) => {
-    if (event.target !== recordElement) {
-      recordElement.classList.remove("selected-progress-container");
-      saveBtn.innerText = "SAVE";
-      clearBtn.innerText = "CLEAR"
-      clearBtn.classList.remove("delete-btn");
-    } else if (event.target === recordElement) {
-      event.target.classList.toggle("selected-progress-container");
-    }
-    if(event.target.classList.contains("selected-progress-container")){
-      saveBtn.innerText = "UPDATE";
-      clearBtn.innerText = "DELETE"
-      clearBtn.classList.add("delete-btn");
-    }
-  });
-
-  //? if the object containes same set-numb then update data in input text..
-  document.querySelector(".weight").value = record.weight;
-  document.querySelector(".reps").value = record.reps;
-  //?save the new data in the prev index with updated values.
-};
 function RecordExercise({ exerciseName = "Chin-ups" }) {
   const [recordsArry, setRecordArry] = useState([]);
+  const [showCrudBtn, setShowCrudBtn] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const addSet = () => {
+    currentCount++;
+    let currentSetObj = {};
+    document.querySelectorAll("input").forEach((inputbox) => {
+      currentSetObj[inputbox.className] = inputbox.value;
+    });
+    currentSetObj.currentCount = currentCount;
+    setRecordArry([...recordsArry, currentSetObj]);
+  };
+  const addComment = (record) => {
+    let currentRecordsArry = [...recordsArry];
+    let recordsArryCopy = currentRecordsArry.map((ele) => {
+      if (record.currentCount === ele.currentCount) {
+        return record;
+      }
+      return ele;
+    });
+    setRecordArry(recordsArryCopy);
+    setIsVisible(false);
+  };
   const clearInputBoxes = () => {
     document
       .querySelectorAll("input")
       .forEach((inputbox) => (inputbox.value = 0));
+  };
+
+  const deleteSet = () => {
+    let recordsArryCopy = [...recordsArry];
+    const index = recordsArryCopy.indexOf(selectedRecordObj);
+    if (index > -1) {
+      // only splice array when item is found
+      recordsArryCopy.splice(index, 1); // 2nd parameter means remove one item only
+    }
+    setRecordArry(recordsArryCopy);
+  };
+
+  const updateSet = () => {
+    let newRecordArr = [...recordsArry];
+    const index = newRecordArr.indexOf(selectedRecordObj);
+    newRecordArr[index].weight = document.querySelector(".weight").value;
+    newRecordArr[index].reps = document.querySelector(".reps").value;
+    setRecordArry(newRecordArr);
   };
 
   const renderExerciseElement = (exerciseName) => {
@@ -61,15 +79,69 @@ function RecordExercise({ exerciseName = "Chin-ups" }) {
     });
     return renderElement;
   };
-  const addSet = () => {
-    currentCount++;
-    let currentSetObj = {};
-    document.querySelectorAll("input").forEach((inputbox) => {
-      currentSetObj[inputbox.className] = inputbox.value;
+
+  const switchBtnandStyle = (event, record) => {
+    selectedRecordObj = record;
+    let recordElements = document.querySelectorAll(".progress-container");
+    //?Highlight the selected progress container & change btn with respective functions...
+    recordElements.forEach((recordElement) => {
+      if (event.target.id !== recordElement.id) {
+        recordElement.classList.remove("selected-progress-container");
+      } else if (event.target.id === recordElement.id) {
+        recordElement.classList.toggle("selected-progress-container");
+      }
     });
-    currentSetObj.currentCount = currentCount;
-    setRecordArry([...recordsArry, currentSetObj]);
+    document.querySelector(".weight").value = record.weight;
+    document.querySelector(".reps").value = record.reps;
+    checkIfEleSelected();
   };
+
+  const checkIfEleSelected = () => {
+    document.querySelector(".selected-progress-container")
+      ? setShowCrudBtn(true)
+      : setShowCrudBtn(false);
+  };
+
+  const CommentBoxVisibility = (commentSet) => {
+    setIsVisible((prevVisibility) => !prevVisibility);
+    let targetObj = recordsArry.map((record) =>
+      record.currentCount === commentSet ? record : null
+    );
+    selectedRecordObj = targetObj;
+  };
+
+  const getTodaysDate =()=>{
+    const date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    const weekdays = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+    ];
+    let weekday = weekdays[date.getDay()];
+    // This arrangement can be altered based on how we want the date's format to appear.
+    let currentDate = `${weekday}, ${day}/${month}/${year}`;
+    return currentDate;
+  }
+  useEffect(() => {
+    setShowCrudBtn(recordsArry.length !== 0); // Show buttons if recordsArry is not empty
+    if (recordsArry.length !== 0) {
+      console.log("saving data");
+      let todaysDate = getTodaysDate();
+      let DataToBeSaved = {
+        [exerciseName]: {
+          [todaysDate]: recordsArry,
+        },
+      };
+      localStorage.setItem("exerciseData", JSON.stringify(DataToBeSaved));
+    }
+  }, [recordsArry, exerciseName]);
 
   return (
     <div className="AddExercise-container">
@@ -78,19 +150,33 @@ function RecordExercise({ exerciseName = "Chin-ups" }) {
       </div>
       <div className="weight-set-container">
         {renderExerciseElement(exerciseName)}
-        <div className="AddExercise-btn-group">
-          <button className="default-btn save-btn" onClick={() => addSet()}>
-            SAVE
-          </button>
-          <button
-            className="default-btn clear-btn"
-            onClick={() => clearInputBoxes()}
-          >
-            CLEAR
-          </button>
-        </div>
+        {showCrudBtn ? (
+          <ShowCrudBtn
+            showGroupSecondBtn={showCrudBtn}
+            deleteSet={deleteSet}
+            updateSet={updateSet}
+          />
+        ) : (
+          <ShowCrudBtn
+            showGroupSecondBtn={showCrudBtn}
+            addSet={addSet}
+            clearInputBoxes={clearInputBoxes}
+          />
+        )}
       </div>
-      <ShowCurrentProgress recordsArry={recordsArry} key={1} />
+      <ShowCurrentProgress
+        recordsArry={recordsArry}
+        switchBtnandStyle={switchBtnandStyle}
+        CommentBoxVisibility={CommentBoxVisibility}
+        isVisible={isVisible}
+      />
+      {isVisible && (
+        <ShowComment
+          CommentBoxVisibility={CommentBoxVisibility}
+          addComment={addComment}
+          selectedRecordObj={selectedRecordObj}
+        />
+      )}
     </div>
   );
 }
