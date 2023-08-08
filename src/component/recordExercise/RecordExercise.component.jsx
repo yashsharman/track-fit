@@ -1,79 +1,90 @@
-import SavedProgress from "../savedProgress/SavedProgress.component";
-import UserInputContainer from "../userInputContainer/UserInputContainer.component";
-const clearInputBoxes = () => {
-  document
-    .querySelectorAll("input")
-    .forEach((inputbox) => (inputbox.value = 0));
-};
-const exerciseRecords = [
-  {
-    comment: "hello",
-    weight: 12.5,
-    reps: 12,
-    pr: false,
-  },
-  {
-    comment: "",
-    weight: 14.5,
-    reps: 12,
-    pr: true,
-  },
-  {
-    comment: "",
-    weight: 1.5,
-    reps: 12,
-    pr: false,
-  },
-  {
-    comment: "",
-    weight: 125.5,
-    reps: 12,
-    pr: false,
-  },
-];
-const timeBoundExercise = ["hanging", "plank"];
-const renderExerciseElement = (exerciseName) => {
-  let renderElement;
-  timeBoundExercise.map((exName) => {
-    if (exName == exerciseName) {
-      renderElement = (
-        <>
-          <UserInputContainer type={"time"} />
-          <UserInputContainer type={"reps"} />
-        </>
-      );
-    } else {
-      renderElement = (
-        <>
-          <UserInputContainer type={"weight"} />
-          <UserInputContainer type={"reps"} />
-        </>
-      );
-    }
+import React, { useState } from 'react';
+import ShowCurrentProgress from '../ShowCurrentProgress/ShowCurrentProgress.component';
+import UserInputContainer from '../userInputContainer/UserInputContainer.component';
+import './RecordExercise.styles.css';
+import { useParams } from 'react-router-dom';
+
+const timeBoundExercise = ['hanging', 'plank'];
+
+export const updateSelectedRecord = (indexToUpdate, updatedTimeValue) => {
+  setRecordArry((prevRecords) => {
+    const updatedRecords = [...prevRecords];
+
+    const selectedRecord = updatedRecords[indexToUpdate];
+
+    selectedRecord.time = updatedTimeValue;
+
+    return updatedRecords; 
   });
-  return renderElement;
 };
-function RecordExercise({ exerciseName="Chin-ups" }) {
+
+function RecordExercise() {
+  const { exerciseName } = useParams(); // To get exercise name
+
+  const [recordsArry, setRecordArry] = useState([]);
+  
+  const clearInputBoxes = () => {
+    document.querySelectorAll('input').
+    forEach((inputbox) => (inputbox.value = 0));
+  };
+
+  const renderExerciseElement = (exerciseName) => {
+    let renderElement;
+    timeBoundExercise.map((exName) => {
+      if (exName === exerciseName) {
+        renderElement = (
+          <>
+            <UserInputContainer type={'time'} />
+            <UserInputContainer type={'reps'} />
+          </>
+        );
+      } else {
+        renderElement = (
+          <>
+            <UserInputContainer type={'weight'} />
+            <UserInputContainer type={'reps'} />
+          </>
+        );
+      }
+    });
+    return renderElement;
+  };
+
+  const addSet = () => {
+    let currentSetObj = {};
+    document.querySelectorAll('input')
+    .forEach((inputbox) => {
+      currentSetObj[inputbox.className] = inputbox.value;
+    });
+    setRecordArry([...recordsArry, currentSetObj]);
+  };
+
+  
   return (
     <div className="AddExercise-container">
-      <h2>{!exerciseName ? "Example Exercise" : exerciseName}</h2>
+      <div className="exercise-heading">
+        {!exerciseName ? 'Example Exercise' : exerciseName}
+      </div>
       <div className="weight-set-container">
-        {renderExerciseElement(exerciseName)}
+        <UserInputContainer type={'weight'} />
+        <UserInputContainer type={'reps'} />
+
         <div className="AddExercise-btn-group">
-          <button className="default-btn" onClick={() => {}}>
+          <button
+            className="default-btn save-btn"
+            onClick={() => addSet()}>
             SAVE
           </button>
-          <button
-            className="default-btn"
-            onClick={() => {
-              clearInputBoxes();
-            }}
-          >
+
+          <button 
+          className="default-btn clear-btn" 
+          onClick={() => clearInputBoxes()}>
             CLEAR
           </button>
         </div>
       </div>
-      <SavedProgress exerciseRecords={exerciseRecords} />
+
+      <ShowCurrentProgress recordsArry={recordsArry} key={1} />
     </div>
   );
 }

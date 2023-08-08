@@ -1,0 +1,23 @@
+.exercise-heading{
+    background-color: rgba(0, 0, 0, 0.85);
+    margin: 0;
+    padding: 1rem;
+    color: white;
+    font-size: x-large;
+    text-align: left;
+}
+.default-btn{
+    padding: 1rem 4rem;
+    border: none;
+    color: white;
+    margin: 0.25rem;
+    border-radius: .2rem;
+    cursor: pointer;
+    font-weight: bolder;
+}
+.save-btn{
+background-color: green;
+}
+.clear-btn{
+    background-color: rgba(0, 128, 128, 0.767);
+}

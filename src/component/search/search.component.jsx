@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Search = ({ data }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
   // Function to handle search input changes
@@ -10,10 +10,10 @@ const Search = ({ data }) => {
     const query = event.target.value;
     setSearchQuery(query);
 
-let filteredResults = [];
+    let filteredResults = [];
     const categories = Object.keys(data);
     categories.map((category) => {
-      let results=data[category].filter((subcat) =>
+      let results = data[category].filter((subcat) =>
         subcat.toLowerCase().includes(query.toLowerCase())
       );
       // if(results.length > 0 ){
@@ -22,7 +22,7 @@ let filteredResults = [];
       }
       return filteredResults;
     });
-    console.log(filteredResults);  
+    console.log(filteredResults);
 
     // Update the search results state
     setSearchResults(filteredResults);
@@ -53,12 +53,20 @@ let filteredResults = [];
       />
 
       {searchResults.length > 0 ? (
-        searchResults.map((result) => <h4>{result}</h4>)
-      ) : (
+        searchResults.map((result, index) => (
+    <Link
+      key={index}
+      to={`/recordexercise/${encodeURIComponent(result)}`}  // redirect to RecordExercise with exercise name
+      style={{ textDecoration: 'none', color: 'black' }}
+    >
+      <h4>{result}</h4>
+    </Link>
+  ))
+) : (
         <>
           <h4>No results found.</h4>
           <p>
-            You can <Link to="/addnewexercise">add new exercise</Link>.
+         <Link to="/addnewexercise">add new exercise</Link>.
           </p>
           {showMainCategories()}
         </>
