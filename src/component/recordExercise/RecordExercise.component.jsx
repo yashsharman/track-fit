@@ -149,6 +149,7 @@ function RecordExercise({ exerciseName = "Chin-ups" }) {
         {!exerciseName ? "Example Exercise" : exerciseName}
       </div>
       <div className="weight-set-container">
+        <></>
         {renderExerciseElement(exerciseName)}
         {showCrudBtn ? (
           <ShowCrudBtn
