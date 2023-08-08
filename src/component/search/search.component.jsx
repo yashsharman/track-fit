@@ -16,9 +16,9 @@ const Search = ({ data }) => {
       let results = data[category].filter((subcat) =>
         subcat.toLowerCase().includes(query.toLowerCase())
       );
-      if(results.length > 0 ){
+      // if(results.length > 0 ){
+      if(results.length > 0 || query !== ""){
         filteredResults.push(...results)
-
       }
       return filteredResults;
     });
@@ -53,12 +53,20 @@ const Search = ({ data }) => {
       />
 
       {searchResults.length > 0 ? (
-        searchResults.map((result) => <h4>{result}</h4>)
-      ) : (
+        searchResults.map((result, index) => (
+    <Link
+      key={index}
+      to={`/recordexercise/${encodeURIComponent(result)}`}  // redirect to RecordExercise with exercise name
+      style={{ textDecoration: 'none', color: 'black' }}
+    >
+      <h4>{result}</h4>
+    </Link>
+  ))
+) : (
         <>
           <h4>No results found.</h4>
           <p>
-            You can <Link to="/addnewexercise">add new exercise</Link>.
+         <Link to="/addnewexercise">add new exercise</Link>.
           </p>
           {showMainCategories()}
         </>

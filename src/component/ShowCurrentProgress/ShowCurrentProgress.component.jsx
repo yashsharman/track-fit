@@ -1,3 +1,4 @@
+import React from "react";
 import "./ShowCurrentProgress.styles.css";
 import { faTrophy as PrIcon } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

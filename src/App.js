@@ -124,7 +124,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path='/record-exercise' element={<RecordExercise/>}/>
+        <Route path='/record-exercise/:exerciseName' element={<RecordExercise />}/>
         <Route path='/' element={<HomePage data={data} />}/>
         <Route path='/search' element={<Search data={data} />}/>
       </Routes>
