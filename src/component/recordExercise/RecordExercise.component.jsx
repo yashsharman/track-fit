@@ -9,11 +9,20 @@ const timeBoundExercise = ["hanging", "plank"];
 let currentCount = 0;
 let selectedRecordObj;
 
-function RecordExercise({ exerciseName = "Chin-ups" }) {
+
+function RecordExercise() {
+  const [exerciseName, setExerciseName] = useState("Example")
   const [recordsArry, setRecordArry] = useState([]);
   const [showCrudBtn, setShowCrudBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
+  useEffect(() => {
+    const currentUrl = window.location.href;
+    const segments = currentUrl.split("/");
+    const exerciseNameStr = segments[segments.length - 1];
+    let exName = exerciseNameStr.replace(/%20/g, " ");
+    setExerciseName(exName);
+  }, []);
   const addSet = () => {
     currentCount++;
     let currentSetObj = {};
@@ -110,7 +119,7 @@ function RecordExercise({ exerciseName = "Chin-ups" }) {
     selectedRecordObj = targetObj;
   };
 
-  const getTodaysDate =()=>{
+  const getTodaysDate = () => {
     const date = new Date();
     let day = date.getDate();
     let month = date.getMonth() + 1;
@@ -128,7 +137,8 @@ function RecordExercise({ exerciseName = "Chin-ups" }) {
     // This arrangement can be altered based on how we want the date's format to appear.
     let currentDate = `${weekday}, ${day}/${month}/${year}`;
     return currentDate;
-  }
+  };
+
   useEffect(() => {
     // setShowCrudBtn(recordsArry.length !== 0); // Show buttons if recordsArry is not empty
     // if (recordsArry.length !== 0) {
@@ -146,7 +156,7 @@ function RecordExercise({ exerciseName = "Chin-ups" }) {
   return (
     <div className="AddExercise-container">
       <div className="exercise-heading">
-        {!exerciseName ? "Example Exercise" : exerciseName}
+        {exerciseName}
       </div>
       <div className="weight-set-container">
         {renderExerciseElement(exerciseName)}

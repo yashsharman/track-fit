@@ -56,7 +56,7 @@ const Search = ({ data }) => {
         searchResults.map((result, index) => (
     <Link
       key={index}
-      to={`/recordexercise/${encodeURIComponent(result)}`}  // redirect to RecordExercise with exercise name
+      to={`/record-exercise/${result}`}  // redirect to RecordExercise with exercise name
       style={{ textDecoration: 'none', color: 'black' }}
     >
       <h4>{result}</h4>
