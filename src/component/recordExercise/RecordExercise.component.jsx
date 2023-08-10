@@ -9,9 +9,8 @@ const timeBoundExercise = ["hanging", "plank"];
 let currentCount = 0;
 let selectedRecordObj;
 
-
 function RecordExercise() {
-  const [exerciseName, setExerciseName] = useState("Example")
+  const [exerciseName, setExerciseName] = useState("Example");
   const [recordsArry, setRecordArry] = useState([]);
   const [showCrudBtn, setShowCrudBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -23,6 +22,13 @@ function RecordExercise() {
     let exName = exerciseNameStr.replace(/%20/g, " ");
     setExerciseName(exName);
   }, []);
+
+  useEffect(() => {
+    if (recordsArry.length === 0) {
+      setShowCrudBtn(false);
+    }
+  }, [recordsArry.length]);
+
   const addSet = () => {
     currentCount++;
     let currentSetObj = {};
@@ -139,25 +145,9 @@ function RecordExercise() {
     return currentDate;
   };
 
-  useEffect(() => {
-    // setShowCrudBtn(recordsArry.length !== 0); // Show buttons if recordsArry is not empty
-    // if (recordsArry.length !== 0) {
-    //   console.log("saving data");
-    //   let todaysDate = getTodaysDate();
-    //   let DataToBeSaved = {
-    //     [exerciseName]: {
-    //       [todaysDate]: recordsArry,
-    //     },
-    //   };
-    //   localStorage.setItem("exerciseData", JSON.stringify(DataToBeSaved));
-    // }
-  }, [recordsArry, exerciseName]);
-
   return (
     <div className="AddExercise-container">
-      <div className="exercise-heading">
-        {exerciseName}
-      </div>
+      <div className="exercise-heading">{exerciseName}</div>
       <div className="weight-set-container">
         {renderExerciseElement(exerciseName)}
         {showCrudBtn ? (
