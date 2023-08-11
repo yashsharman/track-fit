@@ -9,7 +9,6 @@ const timeBoundExercise = ["hanging", "plank"];
 let currentCount = 0;
 let selectedRecordObj;
 
-
 function RecordExercise() {
   const [exerciseName, setExerciseName] = useState("Example")
   const [recordsArry, setRecordArry] = useState([]);
@@ -23,6 +22,7 @@ function RecordExercise() {
     let exName = exerciseNameStr.replace(/%20/g, " ");
     setExerciseName(exName);
   }, []);
+
   const addSet = () => {
     currentCount++;
     let currentSetObj = {};

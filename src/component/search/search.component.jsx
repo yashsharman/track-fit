@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './search.styles.css';
+// import { Search as searchIconBootstrap} from 'react-bootstrap-icons';
+
 
 const Search = ({ data }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,9 +36,9 @@ const Search = ({ data }) => {
     return (
       <>
         {/* <h4>Main Categories</h4> */}
-        <ul>
+        <ul className='ul-container'>
           {categories.map((category) => (
-            <li key={category}>{category}</li>
+            <li className='li-container' key={category}>{category}</li>
           ))}
         </ul>
       </>
@@ -43,9 +46,16 @@ const Search = ({ data }) => {
   };
 
   return (
-    <div>
-      <h1>Search</h1>
+    <div className='search-container-page'>
+    <div className='search-header'>
+      <h4 className='all-exercise-heading'>Exercises</h4>
+      {/* <h3 className='search-text'>Search</h3> */}
+      <button className='add-button'>+</button>
+    </div>
+      <i className='search-icon'>🔍</i>
+      {/* <SearchIcon className='custom-search-icon' /> */}
       <input
+        className='input-exercise-container'
         type="text"
         placeholder="Search exercises..."
         value={searchQuery}
@@ -54,21 +64,25 @@ const Search = ({ data }) => {
 
       {searchResults.length > 0 ? (
         searchResults.map((result, index) => (
-    <Link
-      key={index}
-      to={`/record-exercise/${result}`}  // redirect to RecordExercise with exercise name
-      style={{ textDecoration: 'none', color: 'black' }}
-    >
+      <Link
+       className='search-category'
+       key={index}
+       to={`/record-exercise/${result}`}  // redirect to RecordExercise with exercise name
+       style={{ textDecoration: 'none', color: 'black' }}
+      >
       <h4>{result}</h4>
-    </Link>
+      </Link>
   ))
 ) : (
         <>
-          <h4>No results found.</h4>
-          <p>
+        <div className='main-category-text'>
+        {showMainCategories()}
+        </div>
+          <p className='no-result'>No results found.</p>
+          <p className='addnewexercise'>
          <Link to="/addnewexercise">add new exercise</Link>.
           </p>
-          {showMainCategories()}
+          
         </>
       )}
     </div>

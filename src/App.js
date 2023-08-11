@@ -4,7 +4,6 @@ import RecordExercise from './component/recordExercise/RecordExercise.component'
 import HomePage from './component/homePage/HomePage.component';
 import Search from './component/search/search.component';
 
-
 const data = {
     
   'Abs' : [

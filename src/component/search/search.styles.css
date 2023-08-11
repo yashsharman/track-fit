@@ -1,0 +1,59 @@
+body{
+   margin: 0;
+   padding: 0;
+}
+
+.search-header {
+   display: flex;
+   align-items: center;
+   margin-bottom: 10px;
+   justify-content: space-between;
+   margin-top: 10px;
+   background-color: #333;
+   color: white;
+   padding: 10px;
+}
+
+.add-button {
+   margin-right: 40px;
+   font-size: medium;
+   font-weight: 600;
+   background-color: rgb(7, 141, 7);
+   border-radius: .25rem;
+   cursor: pointer;
+   color: white;
+}
+
+.input-exercise-container{
+   margin: 0;
+   color: #333;
+   font-size: larger;
+   text-align: center;
+   border:none;
+   border-bottom: 1px solid #000;
+   outline: none;
+   padding: 5px;
+   width: 200px;
+}
+
+.search-icon{
+   margin-right: 10px;
+}
+
+.li-container{
+   font-size: large;
+   list-style: none;
+   justify-content: center;
+}
+
+.main-category-text {
+   margin-top: 10px;
+}
+
+.no-result{
+  font-size: large;
+}
+
+.addnewexercise{
+  font-size: large;
+}
