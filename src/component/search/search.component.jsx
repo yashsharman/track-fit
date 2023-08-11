@@ -47,11 +47,13 @@ const Search = ({ data }) => {
 
   return (
     <div className='search-container-page'>
-    <div className='search-header'>
+
+     <div className='search-header'>
       <h4 className='all-exercise-heading'>Exercises</h4>
-      {/* <h3 className='search-text'>Search</h3> */}
-      <button className='add-button'>+</button>
-    </div>
+       <Link to='/addnewexercise' className='add-new-link'>
+        <button className='add-button'>+</button>
+       </Link>
+     </div>
       <i className='search-icon'>🔍</i>
       {/* <SearchIcon className='custom-search-icon' /> */}
       <input

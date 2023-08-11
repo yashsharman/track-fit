@@ -3,6 +3,7 @@ import './App.css';
 import RecordExercise from './component/recordExercise/RecordExercise.component';
 import HomePage from './component/homePage/HomePage.component';
 import Search from './component/search/search.component';
+import AddNewExercise from './component/addNewExercise/addnewexercise.component';
 
 const data = {
     
@@ -126,6 +127,7 @@ function App() {
         <Route path='/record-exercise/*' element={<RecordExercise />}/>
         <Route path='/' element={<HomePage data={data} />}/>
         <Route path='/search' element={<Search data={data} />}/>
+        <Route path='/addnewexercise' element={<AddNewExercise />}/>
       </Routes>
     </div>
   );

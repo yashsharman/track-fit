@@ -1,0 +1,39 @@
+.main-div{
+    margin-top: 10px;
+}
+
+.div-name {
+    text-align: left;
+    border-bottom: 2px solid #333;
+}
+
+.name{
+    border: none;
+    outline: none;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.div-category {
+    text-align: left;
+    border-bottom: 2px solid #333;
+}
+
+.category {
+    border: none;
+    outline: none;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.div-type {
+    text-align: left;
+    border-bottom: 2px solid #333;
+}
+
+.type {
+    border: none;
+    outline: none;
+    text-align: left;
+    margin-bottom: 10px;
+}
