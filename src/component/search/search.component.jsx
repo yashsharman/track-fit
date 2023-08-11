@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './search.styles.css';
-// import { Search as searchIconBootstrap} from 'react-bootstrap-icons';
-
 
 const Search = ({ data }) => {
   const [searchQuery, setSearchQuery] = useState("");

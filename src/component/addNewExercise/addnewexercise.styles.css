@@ -14,10 +14,10 @@
     margin-bottom: 10px;
 }
 
-.div-category {
+ .div-category {
     text-align: left;
     border-bottom: 2px solid #333;
-}
+} 
 
 .category {
     border: none;
@@ -26,10 +26,10 @@
     margin-bottom: 10px;
 }
 
-.div-type {
+ .div-type {
     text-align: left;
     border-bottom: 2px solid #333;
-}
+} 
 
 .type {
     border: none;

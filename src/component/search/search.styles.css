@@ -3,15 +3,17 @@ body{
    padding: 0;
 }
 
+.all-exercise-heading {
+   margin-left: 15px;
+}
+
 .search-header {
    display: flex;
    align-items: center;
    margin-bottom: 10px;
    justify-content: space-between;
-   margin-top: 10px;
    background-color: #333;
    color: white;
-   padding: 10px;
 }
 
 .add-button {
