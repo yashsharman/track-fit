@@ -2,7 +2,7 @@
     margin-top: 10px;
 }
 
-.div-name {
+.common-div {
     text-align: left;
     border-bottom: 2px solid #333;
 }
@@ -14,22 +14,12 @@
     margin-bottom: 10px;
 }
 
- .div-category {
-    text-align: left;
-    border-bottom: 2px solid #333;
-} 
-
 .category {
     border: none;
     outline: none;
     text-align: left;
     margin-bottom: 10px;
 }
-
- .div-type {
-    text-align: left;
-    border-bottom: 2px solid #333;
-} 
 
 .type {
     border: none;

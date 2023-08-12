@@ -1,96 +1,118 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './search.styles.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 const Search = ({ data }) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  // Function to handle search input changes
   const handleSearchInputChange = (event) => {
     const query = event.target.value;
     setSearchQuery(query);
+  };
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+    setSearchQuery(""); //clear searchQuery
+  };
+
+  const filterResults = () => {
+    if (searchQuery === "") {
+      return [];
+    }
 
     let filteredResults = [];
     const categories = Object.keys(data);
-    categories.map((category) => {
-      let results = data[category].filter((subcat) =>
-        subcat.toLowerCase().includes(query.toLowerCase())
+
+    categories.forEach((category) => {
+      const results = data[category].filter((subcat) =>
+        subcat.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      // if(results.length > 0 ){
-      if(results.length > 0 || query !== ""){
-        filteredResults.push(...results)
-      }
-      return filteredResults;
+
+      filteredResults.push(...results);
     });
-    console.log(filteredResults);
 
-    // Update the search results state
-    setSearchResults(filteredResults);
+    return filteredResults;
   };
 
-  const showMainCategories = () => {
-    const categories = Object.keys(data);
-    return (
-      <>
-        {/* <h4>Main Categories</h4> */}
-        <ul className='ul-container'>
-          {categories.map((category) => (
-            <li className='li-container' key={category}>{category}</li>
-          ))}
-        </ul>
-      </>
-    );
-  };
+  const searchResults = filterResults();
 
   return (
-    <div className='search-container-page'>
+    <div className='search-container-page'> 
+      <div className='search-header'>
+        <h4 className='all-exercise-heading'>Exercises</h4>
+        <Link to='/addnewexercise' className='add-new-link'>
+          <button className='add-button'>+</button>
+        </Link>
+      </div>
 
-     <div className='search-header'>
-      <h4 className='all-exercise-heading'>Exercises</h4>
-       <Link to='/addnewexercise' className='add-new-link'>
-        <button className='add-button'>+</button>
-       </Link>
-     </div>
-      <i className='search-icon'>🔍</i>
-      {/* <SearchIcon className='custom-search-icon' /> */}
-      <input
-        className='input-exercise-container'
-        type="text"
-        placeholder="Search exercises..."
-        value={searchQuery}
-        onChange={handleSearchInputChange}
-      />
+      <div className='search-div'>
+        <FontAwesomeIcon icon={faMagnifyingGlass} />
+        <input
+          className='input-exercise-container'
+          type="search"
+          placeholder="Search exercises..."
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
+      </div>
 
-      {searchResults.length > 0 ? (
-        searchResults.map((result, index) => (
-      <Link
-       className='search-category'
-       key={index}
-       to={`/record-exercise/${result}`}  // redirect to RecordExercise with exercise name
-       style={{ textDecoration: 'none', color: 'black' }}
-      >
-      <h4>{result}</h4>
-      </Link>
-  ))
-) : (
-        <>
+      {!searchResults.length && !selectedCategory && (
         <div className='main-category-text'>
-        {showMainCategories()}
+          <ul className='ul-container'>
+            {Object.keys(data).map((category) => (
+              <li
+                className='li-container'
+                key={category}
+                onClick={() => handleCategoryClick(category)}
+              >
+                {category}
+              </li>
+            ))}
+          </ul>
         </div>
-          <p className='no-result'>No results found.</p>
-          <p className='addnewexercise'>
-         <Link to="/addnewexercise">add new exercise</Link>.
-          </p>
-          
-        </>
+      )}
+
+      {selectedCategory && (
+        <div className='subcategories-container'>
+          <ul className='subcategories-list'>
+            {data[selectedCategory].map((subcategory, index) => (
+              <li 
+              className='subcategory-item' 
+              key={index}>
+                {subcategory}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {searchResults.length > 0 && (
+        <div className='search-results'>
+          {searchResults.map((result, index) => (
+            <Link
+              className='search-category'
+              key={index}
+              to={`/record-exercise/${result}`} // Redirect to RecordExercise with exercise name
+            >
+              <h4>{result}</h4>
+            </Link>
+          ))}
+        </div>
+      )}
+
+      {!searchResults.length && selectedCategory && (
+        <p className='no-result'>No results found. 
+        <Link to="/addnewexercise">addnewexercise</Link>.</p>
       )}
     </div>
   );
 };
 
 export default Search;
-  
+   
 
 
 
