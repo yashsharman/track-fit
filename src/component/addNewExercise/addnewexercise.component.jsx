@@ -10,7 +10,6 @@ function AddNewExercisePage () {
   const [newCategory, setNewCategory] = useState('');
   
   const handleAddCategory = () => {
-    // Remaining to add logic for adding new category to our box
     setCategory(newCategory); // Set the new category in the form
     setShowAddCategory(false); // Hide the comment box
     setNewCategory(''); // Clear the new category input
@@ -66,7 +65,6 @@ function AddNewExercisePage () {
       </div>
       </div>
   );
-}
-
+ }
 
    export default AddNewExercisePage;
