@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './search.styles.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 
 const Search = ({ data }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [noSearchResults, setNoSearchResults] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
 
   const handleSearchInputChange = (event) => {
     const query = event.target.value;
@@ -18,11 +21,15 @@ const Search = ({ data }) => {
     setSearchQuery(""); //clear searchQuery
   };
 
-  const filterResults = () => {
-    if (searchQuery === "") {
-      return [];
-    }
-
+  useEffect(() => {
+    const filteredResults = () => {
+      if(searchQuery === "") {
+        setNoSearchResults(false);
+        // setNoSearchResults([]);
+        setSearchResults([]);
+        return;
+      }
+    
     let filteredResults = [];
     const categories = Object.keys(data);
 
@@ -34,17 +41,34 @@ const Search = ({ data }) => {
       filteredResults.push(...results);
     });
 
-    return filteredResults;
+    setSearchResults(filteredResults);
+    setNoSearchResults(
+      searchQuery !== "" &&
+        filteredResults.length === 0 &&
+        !categories.some((category) =>
+          category.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      // filteredResults.length === 0 && !categories.includes(searchQuery)
+      );
   };
+    
+    filteredResults();
 
-  const searchResults = filterResults();
+    if(searchQuery === "") {
+      setSelectedCategory(null);
+    }
+  }, [searchQuery, data]);
+  // const searchResultsToRender = searchResults;
+  // const searchResults = filterResults();
 
   return (
     <div className='search-container-page'> 
       <div className='search-header'>
         <h4 className='all-exercise-heading'>Exercises</h4>
         <Link to='/addnewexercise' className='add-new-link'>
-          <button className='add-button'>+</button>
+          <button className='add-button'>
+          <FontAwesomeIcon icon={faSquarePlus} />
+          </button>
         </Link>
       </div>
 
@@ -59,7 +83,7 @@ const Search = ({ data }) => {
         />
       </div>
 
-      {!searchResults.length && !selectedCategory && (
+      {!searchResults.length && !selectedCategory && !noSearchResults &&(
         <div className='main-category-text'>
           <ul className='ul-container'>
             {Object.keys(data).map((category) => (
@@ -103,17 +127,15 @@ const Search = ({ data }) => {
         </div>
       )}
 
-      {!searchResults.length && selectedCategory && (
-        <p className='no-result'>No results found. 
-        <Link to="/addnewexercise">addnewexercise</Link>.</p>
+      {noSearchResults  && (
+        <p className='no-result'>
+          No exercises found.
+         <br /> 
+          Tap on + button to add new exercise.
+        </p>
       )}
     </div>
   );
-};
+      }
 
 export default Search;
-   
-
-
-
-

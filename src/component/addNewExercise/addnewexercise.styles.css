@@ -1,29 +1,54 @@
-.main-div{
-    margin-top: 10px;
-}
-
-.common-div {
-    text-align: left;
-    border-bottom: 2px solid #333;
-}
+.new-exercise-container {
+   font-size: large;
+   margin: 0;
+   padding: 0;
+  }
 
 .name{
     border: none;
     outline: none;
+    font-size: large;
+    padding: 5px;
+    width: 350px;
     text-align: left;
-    margin-bottom: 10px;
+    border-bottom: 1px solid  rgba(0, 128, 128, 0.767);
 }
 
 .category {
     border: none;
     outline: none;
+    font-size: large;
+    padding: 5px;
+    width: 350px;
     text-align: left;
-    margin-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 128, 128, 0.767) ;
+}
+
+.btn-plus {
+    margin-left: 20rem;
+    font-size: large;
+    font-weight: 600;
+    background-color: rgb(7, 141, 7);
+    border-radius: .25rem;
+    cursor: pointer;
+    color: white;  
+}
+
+.new-category-input {
+    border: none;
+    outline: none;
+    border-bottom:  1px dotted rgba(0, 128, 128, 0.767);
 }
 
 .type {
     border: none;
     outline: none;
+    font-size: large;
+    padding: 5px;
+    width: 350px;
     text-align: left;
-    margin-bottom: 10px;
+    border-bottom: 1px solid  rgba(0, 128, 128, 0.767);
 }
+  
+
+  
