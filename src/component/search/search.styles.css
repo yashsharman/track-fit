@@ -17,15 +17,15 @@ body{
    font-size: x-large;
 }
 
-.add-button {
+ .add-button {
    margin-right: 40px;
-   font-size: medium;
+   font-size: large;
    font-weight: 600;
    background-color: rgb(7, 141, 7);
    border-radius: .25rem;
    cursor: pointer;
-   color: white;
-}
+   color:white;
+} 
 
 .search-category {
   text-decoration: none;
@@ -50,7 +50,7 @@ body{
 
 .li-container{
    font-size: large;
-   font-weight: bold;
+   font-weight: 500;
    list-style: none;
    border-bottom: 1px solid gray;
 }
@@ -61,6 +61,7 @@ body{
 }
 
 .subcategory-item {
+   font-weight: 500;
    text-align: left;
    list-style: none;
    border-bottom: 1px solid gray;
