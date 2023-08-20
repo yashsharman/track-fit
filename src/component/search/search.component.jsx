@@ -25,7 +25,7 @@ const Search = ({ data }) => {
     const filteredResults = () => {
       if(searchQuery === "") {
         setNoSearchResults(false);
-        setNoSearchResults([]);
+        // setNoSearchResults([]);
         setSearchResults([]);
         return;
       }
@@ -41,10 +41,15 @@ const Search = ({ data }) => {
       filteredResults.push(...results);
     });
 
-    setNoSearchResults(
-      filteredResults.length === 0 && !categories.includes(searchQuery)
-      );
     setSearchResults(filteredResults);
+    setNoSearchResults(
+      searchQuery !== "" &&
+        filteredResults.length === 0 &&
+        !categories.some((category) =>
+          category.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+      // filteredResults.length === 0 && !categories.includes(searchQuery)
+      );
   };
     
     filteredResults();
@@ -78,7 +83,7 @@ const Search = ({ data }) => {
         />
       </div>
 
-      {!searchResults.length && !selectedCategory && (
+      {!searchResults.length && !selectedCategory &&  (
         <div className='main-category-text'>
           <ul className='ul-container'>
             {Object.keys(data).map((category) => (
@@ -122,11 +127,7 @@ const Search = ({ data }) => {
         </div>
       )}
 
-      {/* {noSearchResults && !selectedCategory && (
-        <p className='no-result'>No exercises found.</p>
-       )} */}
-
-      {noSearchResults && !selectedCategory && (
+      {noSearchResults  && (
         <p className='no-result'>
           No exercises found.
          <br /> 
