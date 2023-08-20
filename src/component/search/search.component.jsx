@@ -83,7 +83,7 @@ const Search = ({ data }) => {
         />
       </div>
 
-      {!searchResults.length && !selectedCategory &&  (
+      {!searchResults.length && !selectedCategory && !noSearchResults &&(
         <div className='main-category-text'>
           <ul className='ul-container'>
             {Object.keys(data).map((category) => (
