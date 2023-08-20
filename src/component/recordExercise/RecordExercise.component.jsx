@@ -4,31 +4,121 @@ import UserInputContainer from "../userInputContainer/UserInputContainer.compone
 import "./RecordExercise.styles.css";
 import ShowCrudBtn from "../showCrudBtn/ShowCrudBtn.component";
 import ShowComment from "../showComment/ShowComment.compenent";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
+
+const currentUrl = window.location.href;
+const segments = currentUrl.split("/");
+const exerciseNameStr = segments[segments.length - 1];
+const exerciseName = exerciseNameStr.replace(/%20/g, " ");
 const timeBoundExercise = ["hanging", "plank"];
 let currentCount = 0;
 let selectedRecordObj;
 
+
+export const getTodaysDate = () => {
+  const daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const today = new Date();
+  const dayOfWeek = daysOfWeek[today.getDay()].toUpperCase();
+  const month = months[today.getMonth()].toUpperCase();
+  const dayOfMonth = today.getDate();
+  const year = today.getFullYear();
+
+  return `${dayOfWeek}, ${dayOfMonth}/${month}/${year}`;
+};
+
 function RecordExercise() {
-  const [exerciseName, setExerciseName] = useState("Example");
   const [recordsArry, setRecordArry] = useState([]);
   const [showCrudBtn, setShowCrudBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
+  const getOldRecord = () => {
+    let exerciseHistory;
+    let todaysDate = getTodaysDate();
+
+    try {
+      exerciseHistory = JSON.parse(localStorage.getItem("exerciseHistory"));
+    } catch (error) {
+      exerciseHistory = null;
+    }
+
+    if (exerciseHistory && exerciseHistory[todaysDate]) {
+      return exerciseHistory;
+    }
+    return null;
+  };
+
   useEffect(() => {
-    const currentUrl = window.location.href;
-    const segments = currentUrl.split("/");
-    const exerciseNameStr = segments[segments.length - 1];
-    let exName = exerciseNameStr.replace(/%20/g, " ");
-    setExerciseName(exName);
+    let today = getTodaysDate();
+    let exRecord = getOldRecord();
+    if(exRecord[today][exerciseName]){
+      setRecordArry(exRecord[today][exerciseName]);
+    }
   }, []);
 
   useEffect(() => {
+    //* Saving records in localStorage..
     if (recordsArry.length === 0) {
       setShowCrudBtn(false);
+    } else {
+      addToLocalStorage();
     }
   }, [recordsArry.length]);
 
+  const addToLocalStorage = () => {
+    let exerciseHistory;
+    try {
+      exerciseHistory = JSON.parse(localStorage.getItem("exerciseHistory"));
+    } catch (error) {
+      exerciseHistory = null;
+    }
+    let todaysDate = getTodaysDate();
+    let exerciseHistoryObj = {
+      [todaysDate]: {
+        [exerciseName]: [...recordsArry],
+      },
+    };
+
+    if (exerciseHistory == null) {
+      localStorage.setItem(
+        "exerciseHistory",
+        JSON.stringify({
+          [todaysDate]: {
+            [exerciseName]: [...recordsArry],
+          },
+        })
+      );
+    } else {
+      localStorage.setItem(
+        "exerciseHistory",
+        JSON.stringify({ ...exerciseHistory, ...exerciseHistoryObj })
+      );
+    }
+  };
   const addSet = () => {
     currentCount++;
     let currentSetObj = {};
@@ -125,29 +215,14 @@ function RecordExercise() {
     selectedRecordObj = targetObj;
   };
 
-  const getTodaysDate = () => {
-    const date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    const weekdays = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    let weekday = weekdays[date.getDay()];
-    // This arrangement can be altered based on how we want the date's format to appear.
-    let currentDate = `${weekday}, ${day}/${month}/${year}`;
-    return currentDate;
-  };
-
   return (
     <div className="AddExercise-container">
-      <div className="exercise-heading">{exerciseName}</div>
+      <div className="navigation-section">
+        <span>{exerciseName}</span>
+        <Link to="/history">
+          <FontAwesomeIcon icon={faClockRotateLeft} className="history-icon" />
+        </Link>
+      </div>
       <div className="weight-set-container">
         {renderExerciseElement(exerciseName)}
         {showCrudBtn ? (
