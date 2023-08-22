@@ -1,0 +1,14 @@
+.carouselcontroller{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    /* background: gray; */
+}
+.dayHeading{
+    margin: 0;
+}
+.controlIccons{
+    font-size: xx-large;
+}

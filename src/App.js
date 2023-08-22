@@ -5,7 +5,7 @@ import HomePage from "./component/homePage/HomePage.component";
 import Search from "./component/search/search.component";
 import AddNewExercise from "./component/addNewExercise/addnewexercise.component";
 import { saveExerciseToLocalStorage } from "./utils/firebase.utils";
-import { useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import History from "./component/history/history.component";
 
 function App() {

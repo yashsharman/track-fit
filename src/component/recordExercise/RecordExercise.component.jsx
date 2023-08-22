@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import ShowCurrentProgress from "../ShowCurrentProgress/ShowCurrentProgress.component";
 import UserInputContainer from "../userInputContainer/UserInputContainer.component";
 import "./RecordExercise.styles.css";
@@ -8,16 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-
-const currentUrl = window.location.href;
-const segments = currentUrl.split("/");
-const exerciseNameStr = segments[segments.length - 1];
-const exerciseName = exerciseNameStr.replace(/%20/g, " ");
-const timeBoundExercise = ["hanging", "plank"];
 let currentCount = 0;
 let selectedRecordObj;
-
-
+const timeBoundExercise = ["hanging", "plank"];
 export const getTodaysDate = () => {
   const daysOfWeek = [
     "Sunday",
@@ -55,6 +48,7 @@ function RecordExercise() {
   const [recordsArry, setRecordArry] = useState([]);
   const [showCrudBtn, setShowCrudBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [exerciseName, setExerciseName] = useState("");
 
   const getOldRecord = () => {
     let exerciseHistory;
@@ -62,32 +56,43 @@ function RecordExercise() {
 
     try {
       exerciseHistory = JSON.parse(localStorage.getItem("exerciseHistory"));
+      // console.log("try")
     } catch (error) {
       exerciseHistory = null;
+      // console.log("catch")
     }
 
-    if (exerciseHistory && exerciseHistory[todaysDate]) {
-      return exerciseHistory;
+    if (exerciseHistory != null) {
+      return exerciseHistory[todaysDate];
+
     }
     return null;
   };
 
   useEffect(() => {
-    let today = getTodaysDate();
-    let exRecord = getOldRecord();
-    if(exRecord[today][exerciseName]){
-      setRecordArry(exRecord[today][exerciseName]);
-    }
-  }, []);
+    const currentUrl = window.location.href;
+    const segments = currentUrl.split("/");
+    const exerciseNameStr = segments[segments.length - 1];
+    const exName = exerciseNameStr.replace(/%20/g, " ");
+    setExerciseName(exName);
 
+
+    let exRecord = getOldRecord();
+    // console.log(exRecord[exName])
+    if(exRecord != null || undefined){
+      setRecordArry(exRecord[exName]);
+    }
+
+  }, []);
   useEffect(() => {
+
     //* Saving records in localStorage..
     if (recordsArry.length === 0) {
       setShowCrudBtn(false);
     } else {
       addToLocalStorage();
     }
-  }, [recordsArry.length]);
+  }, [recordsArry]);
 
   const addToLocalStorage = () => {
     let exerciseHistory;
@@ -148,11 +153,13 @@ function RecordExercise() {
   const deleteSet = () => {
     let recordsArryCopy = [...recordsArry];
     const index = recordsArryCopy.indexOf(selectedRecordObj);
+    console.log(index)
     if (index > -1) {
       // only splice array when item is found
       recordsArryCopy.splice(index, 1); // 2nd parameter means remove one item only
     }
     setRecordArry(recordsArryCopy);
+    console.log(recordsArryCopy)
   };
 
   const updateSet = () => {
