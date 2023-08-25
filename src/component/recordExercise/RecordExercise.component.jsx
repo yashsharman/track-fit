@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-let currentCount = 0;
 let selectedRecordObj;
 const timeBoundExercise = ["hanging", "plank"];
 export const getTodaysDate = () => {
@@ -56,17 +55,15 @@ function RecordExercise() {
 
     try {
       exerciseHistory = JSON.parse(localStorage.getItem("exerciseHistory"));
-      // console.log("try")
     } catch (error) {
       exerciseHistory = null;
-      // console.log("catch")
+      // console.log("catch" + exerciseHistory)
     }
 
-    if (exerciseHistory != null) {
+    if (exerciseHistory != null && exerciseHistory[todaysDate]) {
       return exerciseHistory[todaysDate];
-
     }
-    return null;
+    return [];
   };
 
   useEffect(() => {
@@ -76,21 +73,16 @@ function RecordExercise() {
     const exName = exerciseNameStr.replace(/%20/g, " ");
     setExerciseName(exName);
 
-
     let exRecord = getOldRecord();
-    // console.log(exRecord[exName])
-    if(exRecord != null || undefined){
+    if (exRecord[exName] != null || undefined) {
       setRecordArry(exRecord[exName]);
     }
-
   }, []);
   useEffect(() => {
-
     //* Saving records in localStorage..
-    if (recordsArry.length === 0) {
+    addToLocalStorage();
+    if (recordsArry.length == 0) {
       setShowCrudBtn(false);
-    } else {
-      addToLocalStorage();
     }
   }, [recordsArry]);
 
@@ -124,23 +116,29 @@ function RecordExercise() {
       );
     }
   };
+  const random3DigitNumber = () => {
+    return Math.floor(100 + Math.random() * 900); // Generates a random number between 100 and 999
+  };
+  // const randomNumber = random3DigitNumber();
+  // console.log(randomNumber); // Output a random 3-digit number
+
   const addSet = () => {
-    currentCount++;
     let currentSetObj = {};
+    currentSetObj.id = random3DigitNumber();
     document.querySelectorAll("input").forEach((inputbox) => {
       currentSetObj[inputbox.className] = inputbox.value;
     });
-    currentSetObj.currentCount = currentCount;
     setRecordArry([...recordsArry, currentSetObj]);
   };
   const addComment = (record) => {
     let currentRecordsArry = [...recordsArry];
     let recordsArryCopy = currentRecordsArry.map((ele) => {
-      if (record.currentCount === ele.currentCount) {
+      if (record.id === ele.id) {
         return record;
       }
       return ele;
     });
+    console.log(recordsArryCopy);
     setRecordArry(recordsArryCopy);
     setIsVisible(false);
   };
@@ -151,15 +149,10 @@ function RecordExercise() {
   };
 
   const deleteSet = () => {
-    let recordsArryCopy = [...recordsArry];
-    const index = recordsArryCopy.indexOf(selectedRecordObj);
-    console.log(index)
-    if (index > -1) {
-      // only splice array when item is found
-      recordsArryCopy.splice(index, 1); // 2nd parameter means remove one item only
-    }
+    let recordsArryCopy = recordsArry.filter(
+      (record) => record !== selectedRecordObj
+    );
     setRecordArry(recordsArryCopy);
-    console.log(recordsArryCopy)
   };
 
   const updateSet = () => {
@@ -252,6 +245,7 @@ function RecordExercise() {
         CommentBoxVisibility={CommentBoxVisibility}
         isVisible={isVisible}
       />
+
       {isVisible && (
         <ShowComment
           CommentBoxVisibility={CommentBoxVisibility}
