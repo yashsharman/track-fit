@@ -20,7 +20,13 @@ const Search = ({ data }) => {
     setSelectedCategory(category);
     setSearchQuery(""); //clear searchQuery
   };
-
+//  useEffect(()=>{
+//   let subcategoriesList =document.querySelector(".subcategories-list");
+//   if(searchResults.length && subcategoriesList){
+//     subcategoriesList.innerHTML = ""
+//   }
+//  },[searchResults.length])
+ console.log(document.querySelector(".main-category-text"))
   useEffect(() => {
     const filteredResults = () => {
       if(searchQuery === "") {

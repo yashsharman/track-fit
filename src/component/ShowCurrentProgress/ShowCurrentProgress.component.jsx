@@ -6,23 +6,25 @@ import { faMessage as EmptyCommentIcon } from "@fortawesome/free-regular-svg-ico
 import { faMessage as commentIcon } from "@fortawesome/free-solid-svg-icons";
 
 function ShowCurrentProgress({recordsArry ,switchBtnandStyle,CommentBoxVisibility}) {
+  let currentCount = 0;
   return (
     <>
       {recordsArry.map((record) => {
-        return (<div key={record.currentCount}>
-            <div   className="progress-container" id={record.currentCount} onClick={(event)=>switchBtnandStyle(event,record)}>
+        currentCount++
+        return (<div key={currentCount}>
+            <div   className="progress-container" id={currentCount} onClick={(event)=>switchBtnandStyle(event,record)}>
               <div className={`progress-container-left`}>
                 {!record.comment ? (
                   <FontAwesomeIcon
                     icon={EmptyCommentIcon}
                     style={{ color: "gainsboro" }}
-                    onClick={()=>{CommentBoxVisibility(record.currentCount)}}
+                    onClick={()=>{CommentBoxVisibility(currentCount)}}
                   />
                 ) : (
                   <FontAwesomeIcon
                     icon={commentIcon}
                     style={{ color: "teal" }}
-                    onClick={()=>{CommentBoxVisibility(record.currentCount)}}
+                    onClick={()=>{CommentBoxVisibility(currentCount)}}
                   />
                 )}
                 {record.pr ? (
@@ -30,22 +32,23 @@ function ShowCurrentProgress({recordsArry ,switchBtnandStyle,CommentBoxVisibilit
                 ) : (
                   <FontAwesomeIcon icon={PrIcon} style={{ color: "rgb(0,0,0,0)" }} />
                 )}
-                <b id={record.currentCount}>{record.currentCount}</b>
+                <b id={currentCount}>{currentCount}</b>
               </div>
-              <div className="progress-container-right" id={record.currentCount}>
-                <div className="display-weight" id={record.currentCount}>
-                  <b id={record.currentCount}>{record.weight}</b>
-                  <span className="light-text" id={record.currentCount}> kgs</span>
+              <div className="progress-container-right" id={currentCount}>
+                <div className="display-weight" id={currentCount}>
+                  <b id={currentCount}>{record.weight}</b>
+                  <span className="light-text" id={currentCount}> kgs</span>
                 </div>
                 <div className="display-reps">
-                  <b id={record.currentCount}>{record.reps}</b>
-                  <span className="light-text" id={record.currentCount}> reps</span>
+                  <b id={currentCount}>{record.reps}</b>
+                  <span className="light-text" id={currentCount}> reps</span>
                 </div>
               </div>
             </div>
             <div className="divider"></div>
             </div>
         );
+        
       })}
     </>
   );
