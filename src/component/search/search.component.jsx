@@ -31,7 +31,6 @@ const Search = ({ data }) => {
     const filteredResults = () => {
       if(searchQuery === "") {
         setNoSearchResults(false);
-        // setNoSearchResults([]);
         setSearchResults([]);
         return;
       }
@@ -53,8 +52,7 @@ const Search = ({ data }) => {
         filteredResults.length === 0 &&
         !categories.some((category) =>
           category.toLowerCase().includes(searchQuery.toLowerCase())
-        )
-      // filteredResults.length === 0 && !categories.includes(searchQuery)
+        ) 
       );
   };
     
@@ -64,9 +62,7 @@ const Search = ({ data }) => {
       setSelectedCategory(null);
     }
   }, [searchQuery, data]);
-  // const searchResultsToRender = searchResults;
-  // const searchResults = filterResults();
-
+ 
   return (
     <div className='search-container-page'> 
       <div className='search-header'>
