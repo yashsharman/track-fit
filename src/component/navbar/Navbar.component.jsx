@@ -8,7 +8,7 @@ function Navbar() {
       <TrackFitlogo className="trackfit-logo" />
       <h3>TrackFit</h3>
     </div>
-    <Link to="/search">
+    <Link to="/search" className="addExercise-icon-link">
     <span
       className="addExercise-icon"
       >

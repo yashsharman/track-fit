@@ -34,7 +34,7 @@ function App() {
         <Route path="/" element={<HomePage data={defaultExercises} />} />
         <Route path="/search" element={<Search data={defaultExercises} />} />
         <Route path="/addnewexercise" element={<AddNewExercise />} />                           
-        <Route path="/history" element={<History />} />                           
+        <Route path="/history/*" element={<History />} />                           
       </Routes>
     </div>
   );

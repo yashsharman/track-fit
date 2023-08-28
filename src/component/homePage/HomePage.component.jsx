@@ -6,7 +6,7 @@ function HomePage() {
   return (
     <div className="hompage">
       <Navbar />
-      <PreviewRecords />
+      <PreviewRecords/>
     </div>
   );
 }

@@ -1,47 +1,23 @@
 import { useContext, useEffect, useState } from "react";
-import ShowCurrentProgress from "../ShowCurrentProgress/ShowCurrentProgress.component";
-import UserInputContainer from "../userInputContainer/UserInputContainer.component";
-import "./RecordExercise.styles.css";
-import ShowCrudBtn from "../showCrudBtn/ShowCrudBtn.component";
-import ShowComment from "../showComment/ShowComment.compenent";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClockRotateLeft } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+
+import ShowCurrentProgress from "../ShowCurrentProgress/ShowCurrentProgress.component";
+import UserInputContainer from "../userInputContainer/UserInputContainer.component";
+import ShowCrudBtn from "../showCrudBtn/ShowCrudBtn.component";
+import ShowComment from "../showComment/ShowComment.compenent";
+import {
+  getTodaysDate,
+  getNameFromURL,
+  getOldRecord,
+  random3DigitNumber,
+} from "../../utils/commonFuncs.utils";
+
+import "./RecordExercise.styles.css";
 
 let selectedRecordObj;
-const timeBoundExercise = ["hanging", "plank"];
-export const getTodaysDate = () => {
-  const daysOfWeek = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const today = new Date();
-  const dayOfWeek = daysOfWeek[today.getDay()].toUpperCase();
-  const month = months[today.getMonth()].toUpperCase();
-  const dayOfMonth = today.getDate();
-  const year = today.getFullYear();
-
-  return `${dayOfWeek}, ${dayOfMonth}/${month}/${year}`;
-};
+const timeBoundExercise = ["Hanging", "Plank"];
 
 function RecordExercise() {
   const [recordsArry, setRecordArry] = useState([]);
@@ -49,79 +25,62 @@ function RecordExercise() {
   const [isVisible, setIsVisible] = useState(false);
   const [exerciseName, setExerciseName] = useState("");
 
-  const getOldRecord = () => {
-    let exerciseHistory;
-    let todaysDate = getTodaysDate();
-
-    try {
-      exerciseHistory = JSON.parse(localStorage.getItem("exerciseHistory"));
-    } catch (error) {
-      exerciseHistory = null;
-      // console.log("catch" + exerciseHistory)
-    }
-
-    if (exerciseHistory != null && exerciseHistory[todaysDate]) {
-      return exerciseHistory[todaysDate];
-    }
-    return [];
-  };
-
   useEffect(() => {
-    const currentUrl = window.location.href;
-    const segments = currentUrl.split("/");
-    const exerciseNameStr = segments[segments.length - 1];
-    const exName = exerciseNameStr.replace(/%20/g, " ");
+    addToLocalStorage();
+    let exName = getNameFromURL();
     setExerciseName(exName);
-
     let exRecord = getOldRecord();
     if (exRecord[exName] != null || undefined) {
       setRecordArry(exRecord[exName]);
     }
   }, []);
+
   useEffect(() => {
     //* Saving records in localStorage..
     addToLocalStorage();
-    if (recordsArry.length == 0) {
+    if (recordsArry.length === 0) {
       setShowCrudBtn(false);
     }
   }, [recordsArry]);
 
+  const renderExerciseElement = (exerciseName) => {
+    let inputElements;
+    timeBoundExercise.map((exName) => {
+      exName == exerciseName
+        ? (inputElements = (
+            <>
+              <UserInputContainer type={"time"} />
+              <UserInputContainer type={"reps"} />
+            </>
+          ))
+        : (inputElements = (
+            <>
+              <UserInputContainer type={"weight"} />
+              <UserInputContainer type={"reps"} />
+            </>
+          ));
+    });
+    return inputElements;
+  };
+
   const addToLocalStorage = () => {
-    let exerciseHistory;
-    try {
-      exerciseHistory = JSON.parse(localStorage.getItem("exerciseHistory"));
-    } catch (error) {
-      exerciseHistory = null;
-    }
+let localData = JSON.parse(localStorage.getItem("exerciseHistory"));
     let todaysDate = getTodaysDate();
-    let exerciseHistoryObj = {
-      [todaysDate]: {
-        [exerciseName]: [...recordsArry],
-      },
-    };
-
-    if (exerciseHistory == null) {
-      localStorage.setItem(
-        "exerciseHistory",
-        JSON.stringify({
-          [todaysDate]: {
-            [exerciseName]: [...recordsArry],
-          },
-        })
-      );
-    } else {
-      localStorage.setItem(
-        "exerciseHistory",
-        JSON.stringify({ ...exerciseHistory, ...exerciseHistoryObj })
-      );
+    if (localData === undefined) {
+      let tempObj = {
+        [todaysDate]: {
+          [exerciseName]: recordsArry,
+        },
+      };
+      localStorage.setItem("exerciseHistory", JSON.stringify(tempObj));
     }
-  };
-  const random3DigitNumber = () => {
-    return Math.floor(100 + Math.random() * 900); // Generates a random number between 100 and 999
-  };
-  // const randomNumber = random3DigitNumber();
-  // console.log(randomNumber); // Output a random 3-digit number
 
+    localData[todaysDate]
+      ? (localData[todaysDate][exerciseName] = recordsArry)
+      : (localData[todaysDate] = { [exerciseName]: recordsArry });
+
+    localStorage.setItem("exerciseHistory", JSON.stringify(localData));
+  };
   const addSet = () => {
     let currentSetObj = {};
     currentSetObj.id = random3DigitNumber();
@@ -130,6 +89,7 @@ function RecordExercise() {
     });
     setRecordArry([...recordsArry, currentSetObj]);
   };
+
   const addComment = (record) => {
     let currentRecordsArry = [...recordsArry];
     let recordsArryCopy = currentRecordsArry.map((ele) => {
@@ -138,10 +98,10 @@ function RecordExercise() {
       }
       return ele;
     });
-    console.log(recordsArryCopy);
     setRecordArry(recordsArryCopy);
     setIsVisible(false);
   };
+
   const clearInputBoxes = () => {
     document
       .querySelectorAll("input")
@@ -161,28 +121,6 @@ function RecordExercise() {
     newRecordArr[index].weight = document.querySelector(".weight").value;
     newRecordArr[index].reps = document.querySelector(".reps").value;
     setRecordArry(newRecordArr);
-  };
-
-  const renderExerciseElement = (exerciseName) => {
-    let renderElement;
-    timeBoundExercise.map((exName) => {
-      if (exName === exerciseName) {
-        renderElement = (
-          <>
-            <UserInputContainer type={"time"} />
-            <UserInputContainer type={"reps"} />
-          </>
-        );
-      } else {
-        renderElement = (
-          <>
-            <UserInputContainer type={"weight"} />
-            <UserInputContainer type={"reps"} />
-          </>
-        );
-      }
-    });
-    return renderElement;
   };
 
   const switchBtnandStyle = (event, record) => {
@@ -219,7 +157,7 @@ function RecordExercise() {
     <div className="AddExercise-container">
       <div className="navigation-section">
         <span>{exerciseName}</span>
-        <Link to="/history">
+        <Link to={`/history/${exerciseName}`}>
           <FontAwesomeIcon icon={faClockRotateLeft} className="history-icon" />
         </Link>
       </div>
