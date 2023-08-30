@@ -11,7 +11,7 @@ function PreviewRecords() {
   const userHistory = JSON.parse(localStorage.getItem("exerciseHistory"));
   let todaysRecords;
   if (userHistory[todaysDate]) todaysRecords = userHistory[todaysDate];
-  console.log(todaysRecords);
+  // console.log(todaysRecords);
   return (
     <div className="PreviewRecords">
       <div className="carouselcontroller">
@@ -21,7 +21,7 @@ function PreviewRecords() {
       </div>
       <div className="carousel">
         <div className="exercise-group-container">
-          {Object.keys(todaysRecords).map((key) => {
+          {todaysRecords && Object.keys(todaysRecords).map((key) => {
             if(key ===""){
               return null
             }
