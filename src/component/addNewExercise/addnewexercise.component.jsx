@@ -6,7 +6,7 @@ function AddNewExercisePage () {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [type, setType] = useState('');
-  const [showAddCategory, setShowAddCategory] = useState(false);
+  const [showAddCategory, setShowAddCategory] = useState(false); 
   const [newCategory, setNewCategory] = useState('');
   
   const handleAddCategory = () => {
