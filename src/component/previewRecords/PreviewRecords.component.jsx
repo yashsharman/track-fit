@@ -10,8 +10,14 @@ function PreviewRecords() {
   const todaysDate = getTodaysDate();
   const userHistory = JSON.parse(localStorage.getItem("exerciseHistory"));
   let todaysRecords;
-  if (userHistory[todaysDate]) todaysRecords = userHistory[todaysDate];
-  // console.log(todaysRecords);
+  if (
+    userHistory &&
+    userHistory[todaysDate] !== null &&
+    userHistory[todaysDate] !== undefined
+  ) {
+    todaysRecords = userHistory[todaysDate];
+    console.log(userHistory[todaysDate]);
+  }
   return (
     <div className="PreviewRecords">
       <div className="carouselcontroller">
@@ -21,17 +27,18 @@ function PreviewRecords() {
       </div>
       <div className="carousel">
         <div className="exercise-group-container">
-          {todaysRecords && Object.keys(todaysRecords).map((key) => {
-            if(key ===""){
-              return null
-            }
-            return (
-              <div className="exercise-container">
-                <h3 className="exercise-heading">{key}</h3>
-                <ShowCurrentProgress recordsArry={todaysRecords[key]} />
-              </div>
-            );
-          })}
+          {todaysRecords &&
+            Object.keys(todaysRecords).map((key) => {
+              if (key === "") {
+                return null;
+              }
+              return (
+                <div className="exercise-container">
+                  <h3 className="exercise-heading">{key}</h3>
+                  <ShowCurrentProgress recordsArry={todaysRecords[key]} />
+                </div>
+              );
+            })}
         </div>
       </div>
     </div>
