@@ -46,7 +46,7 @@ function RecordExercise() {
   const renderExerciseElement = (exerciseName) => {
     let inputElements;
     timeBoundExercise.map((exName) => {
-      exName == exerciseName
+      exName === exerciseName
         ? (inputElements = (
             <>
               <UserInputContainer type={"time"} />
@@ -64,22 +64,22 @@ function RecordExercise() {
   };
 
   const addToLocalStorage = () => {
-let localData = JSON.parse(localStorage.getItem("exerciseHistory"));
+    let localData = JSON.parse(localStorage.getItem("exerciseHistory"));
+    console.log("localdata");
+    console.log(localData);
     let todaysDate = getTodaysDate();
-    if (localData === undefined) {
+    if (localData === null || localData === undefined) {
+      // console.log("tempOBJ")
       let tempObj = {
         [todaysDate]: {
           [exerciseName]: recordsArry,
         },
       };
       localStorage.setItem("exerciseHistory", JSON.stringify(tempObj));
+    } else {
+      localData[todaysDate][exerciseName] = recordsArry;
+      localStorage.setItem("exerciseHistory", JSON.stringify(localData));
     }
-
-    localData[todaysDate]
-      ? (localData[todaysDate][exerciseName] = recordsArry)
-      : (localData[todaysDate] = { [exerciseName]: recordsArry });
-
-    localStorage.setItem("exerciseHistory", JSON.stringify(localData));
   };
   const addSet = () => {
     let currentSetObj = {};
