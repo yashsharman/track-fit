@@ -20,13 +20,8 @@ const Search = ({ data }) => {
     setSelectedCategory(category);
     setSearchQuery(""); //clear searchQuery
   };
-//  useEffect(()=>{
-//   let subcategoriesList =document.querySelector(".subcategories-list");
-//   if(searchResults.length && subcategoriesList){
-//     subcategoriesList.innerHTML = ""
-//   }
-//  },[searchResults.length])
- console.log(document.querySelector(".main-category-text"))
+
+ //console.log(document.querySelector(".main-category-text"))
   useEffect(() => {
     const filteredResults = () => {
       if(searchQuery === "") {
@@ -38,13 +33,20 @@ const Search = ({ data }) => {
     let filteredResults = [];
     const categories = Object.keys(data);
 
-    categories.forEach((category) => {
+   /*  categories.forEach((category) => {
       const results = data[category].filter((subcat) =>
         subcat.toLowerCase().includes(searchQuery.toLowerCase())
       );
 
       filteredResults.push(...results);
-    });
+    }); */
+
+    if (selectedCategory) {
+      const results = data[selectedCategory].filter((subcat) =>
+        subcat.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      filteredResults = results;
+    }
 
     setSearchResults(filteredResults);
     setNoSearchResults(
@@ -61,12 +63,12 @@ const Search = ({ data }) => {
     if(searchQuery === "") {
       setSelectedCategory(null);
     }
-  }, [searchQuery, data]);
+  }, [searchQuery, data, selectedCategory]);
  
   return (
     <div className='search-container-page'> 
       <div className='search-header'>
-        <h4 className='all-exercise-heading'>Exercises</h4>
+        <h2 className='all-exercise-heading'>Exercises</h2>
         <Link to='/addnewexercise' className='add-new-link'>
           <button className='add-button'>
           <FontAwesomeIcon icon={faSquarePlus} />
@@ -107,7 +109,8 @@ const Search = ({ data }) => {
             {data[selectedCategory].map((subcategory, index) => (
               <li 
               className='subcategory-item' 
-              key={index}>
+              key={index}
+              >
                 {subcategory}
               </li>
             ))}
@@ -138,6 +141,6 @@ const Search = ({ data }) => {
       )}
     </div>
   );
-      }
+}
 
 export default Search;
