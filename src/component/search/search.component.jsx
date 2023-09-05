@@ -33,13 +33,13 @@ const Search = ({ data }) => {
     let filteredResults = [];
     const categories = Object.keys(data);
 
-   /*  categories.forEach((category) => {
+     categories.forEach((category) => {
       const results = data[category].filter((subcat) =>
         subcat.toLowerCase().includes(searchQuery.toLowerCase())
       );
 
       filteredResults.push(...results);
-    }); */
+    }); 
 
     if (selectedCategory) {
       const results = data[selectedCategory].filter((subcat) =>
@@ -63,7 +63,7 @@ const Search = ({ data }) => {
     if(searchQuery === "") {
       setSelectedCategory(null);
     }
-  }, [searchQuery, data, selectedCategory]);
+  }, [searchQuery]);
  
   return (
     <div className='search-container-page'> 
@@ -90,6 +90,7 @@ const Search = ({ data }) => {
       {!searchResults.length && !selectedCategory && !noSearchResults &&(
         <div className='main-category-text'>
           <ul className='ul-container'>
+
             {Object.keys(data).map((category) => (
               <li
                 className='li-container'
