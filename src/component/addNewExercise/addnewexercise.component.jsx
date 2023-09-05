@@ -6,7 +6,7 @@ import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 import ShowComment from '../showComment/ShowComment.compenent';
 
 
-function AddNewExercisePage ({ selectedRecordObj, CommentBoxVisibility, addComment }) {
+function AddNewExercisePage ({ /* selectedRecordObj, CommentBoxVisibility, addComment */ }) {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   // const [showAddCategory, setShowAddCategory] = useState(false); 
@@ -94,24 +94,4 @@ function AddNewExercisePage ({ selectedRecordObj, CommentBoxVisibility, addComme
 
    export default AddNewExercisePage;
 
-        {/*     {!showAddCategory ? (
-          <button className='btn-plus' onClick={() => setShowAddCategory(true)}>
-            +
-          </button>
-        
-        ) : (
-          <div className='new-category-container'>
-            <input
-              type="text"
-              placeholder="New Category"
-              className='new-category-input'
-              value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)}
-            />
-            <button className='save' onClick={handleAddCategory}>Save</button>
-            <button className='cancel' onClick={() => setShowAddCategory(false)}>Cancel</button>
-        
-          </div> */}
-       {/*  )} */}
-      {/* </div> */}
-    
+  
