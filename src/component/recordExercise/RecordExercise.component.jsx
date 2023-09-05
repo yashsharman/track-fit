@@ -64,22 +64,21 @@ function RecordExercise() {
   };
 
   const addToLocalStorage = () => {
-    let localData = JSON.parse(localStorage.getItem("exerciseHistory"));
-    console.log("localdata");
-    console.log(localData);
     let todaysDate = getTodaysDate();
-    if (localData === null || localData === undefined) {
-      // console.log("tempOBJ")
-      let tempObj = {
-        [todaysDate]: {
-          [exerciseName]: recordsArry,
-        },
-      };
-      localStorage.setItem("exerciseHistory", JSON.stringify(tempObj));
+  
+    // Retrieve existing data from localStorage
+    let localData = JSON.parse(localStorage.getItem("exerciseHistory")) || {};
+  
+    if (localData[todaysDate] === undefined) {
+      localData[todaysDate] = { [exerciseName]: recordsArry };
+      console.log("Adding exercise name with recordArry");
     } else {
       localData[todaysDate][exerciseName] = recordsArry;
-      localStorage.setItem("exerciseHistory", JSON.stringify(localData));
+      console.log("Adding recordArry");
     }
+  
+    // Save updated data back to localStorage
+    localStorage.setItem("exerciseHistory", JSON.stringify(localData));
   };
   const addSet = () => {
     let currentSetObj = {};
