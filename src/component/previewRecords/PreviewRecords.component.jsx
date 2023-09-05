@@ -27,7 +27,7 @@ function PreviewRecords() {
       </div>
       <div className="carousel">
         <div className="exercise-group-container">
-          {Object.keys(todaysRecords).map((key) => {
+          {todaysRecords &&   Object.keys(todaysRecords).map((key) => {
             if(key ===""){
               return null
             }
