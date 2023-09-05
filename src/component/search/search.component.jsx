@@ -61,7 +61,7 @@ const Search = ({ data }) => {
     filteredResults();
 
     if(searchQuery === "") {
-      setSelectedCategory(null);
+      // setSelectedCategory(null);
     }
   }, [searchQuery]);
  
@@ -104,8 +104,10 @@ const Search = ({ data }) => {
         </div>
       )}
 
-      {selectedCategory && (
-        <div className='subcategories-container'>
+      {/* {selectedCategory && (
+        
+      )} */}
+      {selectedCategory ? (<div className='subcategories-container'>
           <ul className='subcategories-list'>
             {data[selectedCategory].map((subcategory, index) => (
               <li 
@@ -116,22 +118,23 @@ const Search = ({ data }) => {
               </li>
             ))}
           </ul>
-        </div>
-      )}
+        </div>):
+        (
+          <div className='search-results'>
+            {searchResults.map((result, index) => (
+              <Link
+                className='search-category'
+                key={index}
+                to={`/record-exercise/${result}`} // Redirect to RecordExercise with exercise name
+              >
+                <h4>{result}</h4>
+              </Link>
+            ))}
+          </div>
+        )
+        }
 
-      {searchResults.length > 0 && (
-        <div className='search-results'>
-          {searchResults.map((result, index) => (
-            <Link
-              className='search-category'
-              key={index}
-              to={`/record-exercise/${result}`} // Redirect to RecordExercise with exercise name
-            >
-              <h4>{result}</h4>
-            </Link>
-          ))}
-        </div>
-      )}
+      {/* {searchResults.length > 0 && } */}
 
       {noSearchResults  && (
         <p className='no-result'>

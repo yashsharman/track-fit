@@ -1,90 +1,86 @@
 body {
-    background-color: #fcfcfc;
+  background-color: #fcfcfc;
 }
 
 .new-exercise-container {
-   font-size: large;
-   margin: 0;
-   padding: 0;
-  }
-
-div  {
-    padding: 10px;
+  font-size: large;
+  margin: 0;
+  padding: 0;
 }
 
-.name{
-    border: none;
-    outline: none;
-    font-size: large;
-    padding: 5px;
-    width: 100%;
-    text-align: left;
-    border-bottom: 1px solid  rgba(0, 128, 128, 0.767);
+.new-exercise-container > div {
+  padding: 10px;
+}
+
+.name {
+  border: none;
+  outline: none;
+  font-size: large;
+  padding: 5px;
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 128, 128, 0.767);
 }
 
 .category {
-    border: none;
-    outline: none;
-    font-size: large;
-    padding: 5px;
-    width: 100%;
-    text-align: left;
-    border-bottom: 1px solid rgba(0, 128, 128, 0.767) ;
+  border: none;
+  outline: none;
+  font-size: large;
+  padding: 5px;
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 128, 128, 0.767);
 }
 
 .category-items {
-    border: none;
-    outline: none;
-    border-bottom: 1px solid gray;
-    margin-right: 50%;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid gray;
+  margin-right: 50%;
 }
 
 .dropdown-btn {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-  
-  .dropdown-text {
-    width: 150px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 5px;
-  }
-  
-  .new-ctegory-btn {
-    background-color: rgb(7, 141, 7);
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
-  }
-
-  option {
-    font-size: large;
-    font-weight: 700;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-  }
-
-  .dropdown-text > option {
-    border-bottom: 1px solid #ccc;
-  }
- 
-  
-  .new-ctegory-btn:hover {
-    background-color: green;
-  }
-  
-.type {
-    border: none;
-    outline: none;
-    font-size: large;
-    padding: 5px;
-    width: 100%;
-    text-align: left;
-    border-bottom: 1px solid  rgba(0, 128, 128, 0.767);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
 }
-  
 
-  
+.dropdown-text {
+  width: 150px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.new-ctegory-btn {
+  background-color: rgb(7, 141, 7);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+option {
+  font-size: large;
+  font-weight: 700;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.dropdown-text > option {
+  border-bottom: 1px solid #ccc;
+}
+
+.new-ctegory-btn:hover {
+  background-color: green;
+}
+
+.type {
+  border: none;
+  outline: none;
+  font-size: large;
+  padding: 5px;
+  width: 100%;
+  text-align: left;
+  border-bottom: 1px solid rgba(0, 128, 128, 0.767);
+}
