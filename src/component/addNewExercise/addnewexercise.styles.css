@@ -22,22 +22,22 @@ body {
   border-bottom: 1px solid rgba(0, 128, 128, 0.767);
 }
 
-.category {
-  border: none;
-  outline: none;
-  font-size: large;
-  padding: 5px;
-  width: 100%;
-  text-align: left;
-  border-bottom: 1px solid rgba(0, 128, 128, 0.767);
-}
+/* .category { */
+  /* border: none; */
+  /* outline: none; */
+  /* font-size: large; */
+  /* padding: 5px; */
+  /* width: 100%; */
+  /* text-align: left; */
+  /* border-bottom: 1px solid rgba(0, 128, 128, 0.767); */
+/* } */
 
-.category-items {
-  border: none;
-  outline: none;
-  border-bottom: 1px solid gray;
-  margin-right: 50%;
-}
+/* .category-items { */
+  /* border: none; */
+  /* outline: none; */
+  /* border-bottom: 1px solid gray; */
+  /* margin-right: 50%; */
+/* } */
 
 .dropdown-btn {
   display: flex;
@@ -46,23 +46,23 @@ body {
 }
 
 .dropdown-text {
-  width: 150px;
+  width: 100%;
   border: 1px solid #ccc;
   border-radius: 4px;
   padding: 5px;
 }
 
-.new-ctegory-btn {
-  background-color: rgb(7, 141, 7);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
-}
+/* .new-ctegory-btn { */
+  /* background-color: rgb(7, 141, 7); */
+  /* color: white; */
+  /* border: none; */
+  /* border-radius: 4px; */
+  /* padding: 5px 10px; */
+/* } */
 
 option {
   font-size: large;
-  font-weight: 700;
+  font-weight: 500;
   padding: 10px;
   border-bottom: 1px solid #ccc;
 }
@@ -71,16 +71,30 @@ option {
   border-bottom: 1px solid #ccc;
 }
 
-.new-ctegory-btn:hover {
-  background-color: green;
+.drpbtn-type {
+  display: felx;
+  justify-content: space-between;
+  margin-top: 10px;
+
 }
 
-.type {
-  border: none;
-  outline: none;
-  font-size: large;
-  padding: 5px;
+.drptext-type {
   width: 100%;
-  text-align: left;
-  border-bottom: 1px solid rgba(0, 128, 128, 0.767);
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px;
 }
+
+/* .new-ctegory-btn:hover { */
+  /* background-color: green; */
+/* } */
+
+/* .type { */
+  /* border: none; */
+  /* outline: none; */
+  /* font-size: large; */
+  /* padding: 5px; */
+  /* width: 100%; */
+  /* text-align: left; */
+  /* border-bottom: 1px solid rgba(0, 128, 128, 0.767); */
+/* } */

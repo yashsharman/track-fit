@@ -1,24 +1,24 @@
 import React from 'react';
 import './addnewexercise.styles.css';
 import { useState } from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
-import ShowComment from '../showComment/ShowComment.compenent';
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
+// import ShowComment from '../showComment/ShowComment.compenent';
 
 
 function AddNewExercisePage ({ /* selectedRecordObj, CommentBoxVisibility, addComment */ }) {
   const [name, setName] = useState('');
-  const [type, setType] = useState('');
+  // const [type, setType] = useState('');
   // const [showAddCategory, setShowAddCategory] = useState(false); 
   /* const [newCategory, setNewCategory] = useState(''); */
-  const [selected, setSelected] = useState();
-  const [showComment, setshowComment] = useState(null);
-  const [isVisible, setIsVisible] = useState(false);
+  // const [selected, setSelected] = useState();
+  // const [showComment, setshowComment] = useState(null);
+  // const [isVisible, setIsVisible] = useState(false);
   // const [commentText, setCommentText] = useState(selectedRecordObj.comment || '');
   
-  const handleShowComment = () => {
+ /*  const handleShowComment = () => {
     setshowComment(true);
-  }
+  } */
 
   /* const options = ['Abs', 'Back', 'Triceps', 'Shoulder']  */  
   return (
@@ -35,20 +35,21 @@ function AddNewExercisePage ({ /* selectedRecordObj, CommentBoxVisibility, addCo
         />
       </div>
 
-      <div className='category-input-container'>
+      {/* <div className='category-input-container'>
         <input
           type="text"
           placeholder="Category"
           className='category'
           value={selected}
         />
+      </div> */}
 
-       <div className='dropdown-btn'>
+        <div className='dropdown-btn'>
 
-          <select value={selected} 
+          <select 
                className='dropdown-text'
-               onChange={e=>setSelected(e.target.value)}
                >
+               <option>Select Category</option>
                <option></option>
                <option>Abs</option>
                <option>Back</option>
@@ -60,33 +61,43 @@ function AddNewExercisePage ({ /* selectedRecordObj, CommentBoxVisibility, addCo
                <option>Triceps</option>
           </select>
 
-        <button 
+         {/*  <button 
               className='new-ctegory-btn'
               onClick={handleShowComment}>
          <FontAwesomeIcon icon={faSquarePlus} />
-        </button>
+         </button> */}
    
-        {showComment && <ShowComment  
+         {/* {showComment && <ShowComment  
           // CommentBoxVisibility={CommentBoxVisibility}
           // addComment={addComment}
           // selectedRecordObj={selectedRecordObj}
-          />} 
+          />}  */}
     
-       </div> 
+        </div> 
        
-       </div> 
+       
 
-       <div className='type-input-container'>
-        <input
+        <div className='drpbtn-type'>
+          
+          <select 
+            className='drptext-type'>
+            <option>Select Type</option>
+            <option></option>
+            <option>Weight/Reps</option>
+            <option>Time/Reps</option>
+          </select>
+
+        </div> 
+       {/*   <input
           type="text"
           placeholder="Type"
           className='type'
           value={type}
           onChange={(e) => setType(e.target.value)}
-        />
-      </div> 
+         /> */}
+       
              
-      </div>
+    </div>
 
     
   );
