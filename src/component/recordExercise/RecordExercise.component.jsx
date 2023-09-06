@@ -17,7 +17,7 @@ import {
 import "./RecordExercise.styles.css";
 
 let selectedRecordObj;
-const timeBoundExercise = ["Hanging", "Plank"];
+const timeBoundExercise = ["Hanging", "Plank", "abc"];
 
 function RecordExercise() {
   const [recordsArry, setRecordArry] = useState([]);

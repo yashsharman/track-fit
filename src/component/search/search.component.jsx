@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { defaultExercise } from '../../App';
 import './search.styles.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faSquarePlus } from '@fortawesome/free-solid-svg-icons';
 
-const Search = ({ data }) => {
+const Search = () => {
+  const data = useContext(defaultExercise)
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [noSearchResults, setNoSearchResults] = useState(false);
@@ -91,7 +93,7 @@ const Search = ({ data }) => {
         <div className='main-category-text'>
           <ul className='ul-container'>
 
-            {Object.keys(data).map((category) => (
+            {data && Object.keys(data).map((category) => (
               <li
                 className='li-container'
                 key={category}
