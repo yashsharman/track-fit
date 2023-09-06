@@ -3,16 +3,18 @@ body{
    padding: 0;
 }
 
-.all-exercise-heading {
-   margin-left: 15px;
-}
+ h2.all-exercise-heading { 
+    margin-left: 15px; 
+    color: white; 
+    background-color: #222; 
+ } 
 
 .search-header {
    display: flex;
    align-items: center;
    justify-content: space-between;
-   background-color: rgba(0, 0, 0, 0.85); 
-   color: white;
+   background-color: rgba(0, 0, 0, 0.85);
+  
 }
 
  .add-button {
@@ -28,10 +30,11 @@ body{
    background-color: green;
 }
 
-.search-category {
-  text-decoration: none;
-  color:rgba(0, 0, 0, 0.85); 
-}
+/* .search-category { */
+  /* text-decoration: none; */
+  /* color:rgba(0, 0, 0, 0.85);  */
+  /* background-color: aqua; */
+/* } */
 
 .input-exercise-container{
    margin-top: 30px;
@@ -39,7 +42,7 @@ body{
    font-size: larger;
    text-align: left;
    border:none;
-   border-bottom: 1px solid #000;
+   border-bottom: 2px solid #000;
    outline: none;
    padding: 5px;
    width: 300px;
