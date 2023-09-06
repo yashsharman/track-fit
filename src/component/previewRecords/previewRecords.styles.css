@@ -1,0 +1,41 @@
+.PreviewRecords{
+    background-color: gainsboro;
+    min-height: 100vh;
+}.carouselcontroller{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    /* background: gray; */
+}
+.dayHeading{
+    margin: 0;
+}
+.controlIccons{
+    font-size: xx-large;
+}
+.exercise-group-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.exercise-container{
+    width: 90%;
+    background-color: white;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-radius: 0.25rem;
+}
+.exercise-heading{
+    text-align: left;
+    color: grey;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+    border-bottom:2px solid teal ;
+}
+/* .progress-container{
+    height: 3rem;
+}.divider{
+    display: none;
+} */

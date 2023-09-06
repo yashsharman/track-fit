@@ -1,0 +1,19 @@
+.AddExercise-container{
+    position: relative;
+    height: 100%;
+}
+.navigation-section{
+    background-color: rgba(0, 0, 0, 0.85);
+    margin: 0;
+    padding: 1rem;
+    color: white;
+    font-size: x-large;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.history-icon{
+    cursor: pointer;
+    color: white;
+}
